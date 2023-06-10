@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "396462163060",
+    "project_id": "fir-project-1724a",
+    "storage_bucket": "fir-project-1724a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396462163060:android:4365dd5368f41fffdcfd21",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_chuyenman"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCF5rj8KFs93i5C_wBXhWM_Go9LTMJIF38"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

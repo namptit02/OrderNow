@@ -1,0 +1,13 @@
+{
+    "Respondcode": "00",
+    "message": "success",
+    "data": {
+        "username": "namhv",
+        "password": 123,
+        "ismale": true,
+        "partnerData": {
+            "username": "quang",
+            "bondLeve": 2
+        }
+    }
+}
