@@ -117,8 +117,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: true,
-        body: Container(
+      resizeToAvoidBottomInset: true,
+      body: WillPopScope(
+        onWillPop: () async {
+          return false;
+        },
+        child: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topCenter,
@@ -146,7 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 136, left: 26),
+                    padding: const EdgeInsets.only(top: 86, left: 26),
                     // ignore: avoid_unnecessary_containers
                     child: Container(
                       child: Text(
@@ -156,6 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
+                  ElevatedButton(onPressed: () {}, child: Text("ChangeTheme")),
                   Container(
                     margin: const EdgeInsets.only(left: 19, top: 32),
                     width: 353,
@@ -191,7 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Container(
                     // width: double.infinity,
-                    height: 200,
+                    height: 150,
                     child: ListView.builder(
                       shrinkWrap: false,
                       physics: const AlwaysScrollableScrollPhysics(),
@@ -231,8 +236,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 19),
+                    child: Text("Recommended",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w600)),
+                  ),
                   Container(
-                    width: 150,
+                    width: 400,
+                    height: 300,
                     padding: const EdgeInsets.symmetric(horizontal: 32),
                     margin: const EdgeInsets.only(top: 5),
                     child: SingleChildScrollView(
@@ -246,15 +258,19 @@ class _HomeScreenState extends State<HomeScreen> {
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: categoryList.length,
                             itemBuilder: (context, index) => Container(
-                              color: Colors.green,
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 16, horizontal: 16),
+                              width: 353,
+                              height: 113,
+                              decoration: const BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(30)),
+                                color: Color.fromRGBO(0, 0, 0, 0.1),
+                              ),
                               child: Row(
                                 children: [
                                   Image.network(
                                     categoryList[index].imageCategory ?? "",
-                                    width: 50,
-                                    height: 50,
+                                    width: 120,
+                                    height: 100,
                                   ),
                                   Expanded(
                                     child: Column(
@@ -288,7 +304,58 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-        ));
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0, // Set the initial selected index (e.g., "Home")
+        onTap: (int index) {
+          // Handle navigation based on the tapped item
+          if (index == 0) {
+            // Home icon tapped
+            // Handle navigation to the home screen
+          } else if (index == 1) {
+            // Love icon tapped
+            // Handle navigation to the love screen
+          } else if (index == 2) {
+            // Store icon tapped
+            // Handle navigation to the store screen
+          } else if (index == 3) {
+            // Profile icon tapped
+            // Handle navigation to the profile screen
+          }
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.home,
+              color: Colors.black,
+            ),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.favorite,
+              color: Colors.black,
+            ),
+            label: 'Love',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.store,
+              color: Colors.black,
+            ),
+            label: 'Store',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.person,
+              color: Colors.black,
+            ),
+            label: 'Profile',
+          ),
+        ],
+      ),
+    );
   }
 }
 
