@@ -144,6 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
           // ignore: avoid_unnecessary_containers
           child: Container(
             child: SingleChildScrollView(
+              physics: NeverScrollableScrollPhysics(),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
