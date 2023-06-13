@@ -151,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 86, left: 26),
+                    padding: const EdgeInsets.only(top: 100, left: 26),
                     // ignore: avoid_unnecessary_containers
                     child: Container(
                       child: Text(
@@ -162,6 +162,28 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   ElevatedButton(onPressed: () {}, child: Text("ChangeTheme")),
+                  Container(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        // ignore: deprecated_member_use
+                        primary: const Color(0xff8359E3),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(35),
+                        ),
+                      ),
+                      onPressed: () async {
+                        try {
+                          await Auth().logOut();
+                        } catch (error) {
+                          // ignore: avoid_print
+                          print(error.toString());
+                        }
+                      },
+                      child: const Text(
+                        "Log out",
+                      ),
+                    ),
+                  ),
                   Container(
                     margin: const EdgeInsets.only(left: 19, top: 32),
                     width: 353,
@@ -402,25 +424,4 @@ class ScreenArgument {
                   // ),
 
                    // ignore: avoid_unnecessary_containers
-                  // Container(
-                  //   child: ElevatedButton(
-                  //     style: ElevatedButton.styleFrom(
-                  //       // ignore: deprecated_member_use
-                  //       primary: const Color(0xff8359E3),
-                  //       shape: RoundedRectangleBorder(
-                  //         borderRadius: BorderRadius.circular(35),
-                  //       ),
-                  //     ),
-                  //     onPressed: () async {
-                  //       try {
-                  //         await Auth().logOut();
-                  //       } catch (error) {
-                  //         // ignore: avoid_print
-                  //         print(error.toString());
-                  //       }
-                  //     },
-                  //     child: const Text(
-                  //       "Log out",
-                  //     ),
-                  //   ),
-                  // ),
+                
