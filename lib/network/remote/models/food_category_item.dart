@@ -5,37 +5,50 @@
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
+FoodCategoryItem foodCategoryItemFromJson(String str) =>
+    FoodCategoryItem.fromJson(json.decode(str));
+
+String foodCategoryItemToJson(FoodCategoryItem data) =>
+    json.encode(data.toJson());
+
 class FoodCategoryItem {
-  final String? imageCategory;
-  final String? textCategory;
+  final String imageCategory;
+  final int priceCategory;
+  final String textCategory;
+  final String type;
 
   FoodCategoryItem({
-    this.imageCategory,
-    this.textCategory,
+    required this.imageCategory,
+    required this.priceCategory,
+    required this.textCategory,
+    required this.type,
   });
 
   FoodCategoryItem copyWith({
     String? imageCategory,
+    int? priceCategory,
     String? textCategory,
+    String? type,
   }) =>
       FoodCategoryItem(
         imageCategory: imageCategory ?? this.imageCategory,
+        priceCategory: priceCategory ?? this.priceCategory,
         textCategory: textCategory ?? this.textCategory,
+        type: type ?? this.type,
       );
-
-  factory FoodCategoryItem.fromRawJson(String str) =>
-      FoodCategoryItem.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
 
   factory FoodCategoryItem.fromJson(Map<String, dynamic> json) =>
       FoodCategoryItem(
         imageCategory: json["image_category"],
+        priceCategory: json["price_category"],
         textCategory: json["text_category"],
+        type: json["type"],
       );
 
   Map<String, dynamic> toJson() => {
         "image_category": imageCategory,
+        "price_category": priceCategory,
         "text_category": textCategory,
+        "type": type,
       };
 }

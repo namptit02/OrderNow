@@ -1,4 +1,4 @@
-import 'package:flutter_application_chuyenman/network/local/models/shopping_item.dart';
+import 'package:flutter_application_chuyenman/network/remote/models/shopping_item.dart';
 
 class GetShoppingListItemResponse {
   final List<ShoppingItem> listShoppingItem;

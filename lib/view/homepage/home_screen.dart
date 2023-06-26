@@ -2,10 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_chuyenman/network/data_state/data_state.dart';
-import 'package:flutter_application_chuyenman/network/local/models/food_category_item.dart';
-import 'package:flutter_application_chuyenman/network/local/models/shopping_item.dart';
+import 'package:flutter_application_chuyenman/network/remote/models/food_category_item.dart';
+import 'package:flutter_application_chuyenman/network/remote/models/shopping_item.dart';
 import 'package:flutter_application_chuyenman/network/repositories/home_repository_impl.dart';
+import 'package:flutter_application_chuyenman/view/detaill_food/detail_food.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
 import '../../common/authentication.dart';
 // import 'package:http/http.dart' as http;
@@ -29,66 +31,66 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     usernamesController = TextEditingController(text: usernamesValue);
     super.initState();
-    _getItems();
+    // _getItems();
     _getCategoryItems();
     // _postItems();
   }
 
   // ignore: unused_element
-  void _postItem() async {
-    setState(() {
-      isLoading = true;
-    });
-    final response =
-        await HomeRepositoryImpl().postListShoppingItem(ShoppingItem(
-      model: modelController.text,
-      name: nameController.text,
-      price: int.tryParse(priceController.text) ?? 0,
-    ));
-    setState(() {
-      isLoading = false;
-    });
-    if (response is DataSuccess) {
-      Fluttertoast.showToast(
-        msg: "Post Item thanh cong",
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.TOP,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.blue,
-        textColor: Colors.white,
-        fontSize: 16.0,
-      );
-      _getItems();
-    } else {
-      Fluttertoast.showToast(
-        msg: "Post Item that bai",
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.TOP,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0,
-      );
-    }
-  }
+  // void _postItem() async {
+  //   setState(() {
+  //     isLoading = true;
+  //   });
+  //   final response =
+  //       await HomeRepositoryImpl().postListShoppingItem(ShoppingItem(
+  //     model: modelController.text,
+  //     name: nameController.text,
+  //     price: int.tryParse(priceController.text) ?? 0,
+  //   ));
+  //   setState(() {
+  //     isLoading = false;
+  //   });
+  //   if (response is DataSuccess) {
+  //     Fluttertoast.showToast(
+  //       msg: "Post Item thanh cong",
+  //       toastLength: Toast.LENGTH_LONG,
+  //       gravity: ToastGravity.TOP,
+  //       timeInSecForIosWeb: 1,
+  //       backgroundColor: Colors.blue,
+  //       textColor: Colors.white,
+  //       fontSize: 16.0,
+  //     );
+  //     _getItems();
+  //   } else {
+  //     Fluttertoast.showToast(
+  //       msg: "Post Item that bai",
+  //       toastLength: Toast.LENGTH_LONG,
+  //       gravity: ToastGravity.TOP,
+  //       timeInSecForIosWeb: 1,
+  //       backgroundColor: Colors.red,
+  //       textColor: Colors.white,
+  //       fontSize: 16.0,
+  //     );
+  //   }
+  // }
 
-  List<ShoppingItem> shoppingList = [];
+  // List<ShoppingItem> shoppingList = [];
 
-  void _getItems() async {
-    setState(() {
-      isLoading = true;
-    });
-    final response = await HomeRepositoryImpl().getListShoppingItem();
+  // void _getItems() async {
+  //   setState(() {
+  //     isLoading = true;
+  //   });
+  //   final response = await HomeRepositoryImpl().getListShoppingItem();
 
-    if (response is DataSuccess) {
-      setState(() {
-        shoppingList = response.data?.listShoppingItem ?? [];
-      });
-    }
-    setState(() {
-      isLoading = false;
-    });
-  }
+  //   if (response is DataSuccess) {
+  //     setState(() {
+  //       shoppingList = response.data?.listShoppingItem ?? [];
+  //     });
+  //   }
+  //   setState(() {
+  //     isLoading = false;
+  //   });
+  // }
 
   List<FoodCategoryItem> categoryList = [];
   void _getCategoryItems() async {
@@ -151,7 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 100, left: 26),
+                    padding: const EdgeInsets.only(top: 60, left: 26),
                     // ignore: avoid_unnecessary_containers
                     child: Container(
                       child: Text(
@@ -161,29 +163,29 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
-                  ElevatedButton(onPressed: () {}, child: Text("ChangeTheme")),
-                  Container(
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        // ignore: deprecated_member_use
-                        primary: const Color(0xff8359E3),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(35),
-                        ),
-                      ),
-                      onPressed: () async {
-                        try {
-                          await Auth().logOut();
-                        } catch (error) {
-                          // ignore: avoid_print
-                          print(error.toString());
-                        }
-                      },
-                      child: const Text(
-                        "Log out",
-                      ),
-                    ),
-                  ),
+                  // ElevatedButton(onPressed: () {}, child: Text("ChangeTheme")),
+                  // Container(
+                  //   child: ElevatedButton(
+                  //     style: ElevatedButton.styleFrom(
+                  //       // ignore: deprecated_member_use
+                  //       primary: const Color(0xff8359E3),
+                  //       shape: RoundedRectangleBorder(
+                  //         borderRadius: BorderRadius.circular(35),
+                  //       ),
+                  //     ),
+                  //     onPressed: () async {
+                  //       try {
+                  //         await Auth().logOut();
+                  //       } catch (error) {
+                  //         // ignore: avoid_print
+                  //         print(error.toString());
+                  //       }
+                  //     },
+                  //     child: const Text(
+                  //       "Log out",
+                  //     ),
+                  //   ),
+                  // ),
                   Container(
                     margin: const EdgeInsets.only(left: 19, top: 32),
                     width: 353,
@@ -267,9 +269,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Container(
                     width: 400,
-                    height: 300,
-                    padding: const EdgeInsets.symmetric(horizontal: 32),
-                    margin: const EdgeInsets.only(top: 5),
+                    height: 350,
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    margin: const EdgeInsets.only(top: 0),
                     child: SingleChildScrollView(
                       child: Column(
                         // mainAxisAlignment: MainAxisAlignment.center,
@@ -280,34 +282,59 @@ class _HomeScreenState extends State<HomeScreen> {
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: categoryList.length,
-                            itemBuilder: (context, index) => Container(
-                              width: 353,
-                              height: 113,
-                              decoration: const BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(30)),
-                                color: Color.fromRGBO(0, 0, 0, 0.1),
-                              ),
-                              child: Row(
-                                children: [
-                                  Image.network(
-                                    categoryList[index].imageCategory ?? "",
-                                    width: 120,
-                                    height: 100,
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      children: [
-                                        Text(categoryList[index].textCategory ??
-                                            ""),
-                                        // Text(shoppingList[index].model ?? ""),
-                                        // Text(shoppingList[index]
-                                        //     .price
-                                        //     .toString()),
-                                      ],
+                            itemBuilder: (context, index) => GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => DetailFood(
+                                              image_category:
+                                                  categoryList[index]
+                                                      .imageCategory,
+                                              text_category: categoryList[index]
+                                                  .textCategory,
+                                            )));
+                              },
+                              child: Container(
+                                width: 353,
+                                height: 100,
+                                decoration: const BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(30)),
+                                  color: Color.fromRGBO(0, 0, 0, 0.1),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      width: 200,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(top: 30),
+                                        child: Column(
+                                          children: [
+                                            Text(categoryList[index]
+                                                    .textCategory ??
+                                                ""),
+                                            Text(categoryList[index]
+                                                .priceCategory
+                                                .toString()),
+                                            // Text(shoppingList[index].model ?? ""),
+                                            // Text(shoppingList[index]
+                                            //     .price
+                                            //     .toString()),
+                                          ],
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                    Image.network(
+                                      categoryList[index].imageCategory ?? "",
+                                      width: 120,
+                                      height: 100,
+                                    ),
+                                    // Expanded(
+                                    //   child: Column(),
+                                    // ),
+                                  ],
+                                ),
                               ),
                             ),
                             separatorBuilder: (context, index) =>
@@ -329,54 +356,35 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0, // Set the initial selected index (e.g., "Home")
-        onTap: (int index) {
-          // Handle navigation based on the tapped item
-          if (index == 0) {
-            // Home icon tapped
-            // Handle navigation to the home screen
-          } else if (index == 1) {
-            // Love icon tapped
-            // Handle navigation to the love screen
-          } else if (index == 2) {
-            // Store icon tapped
-            // Handle navigation to the store screen
-          } else if (index == 3) {
-            // Profile icon tapped
-            // Handle navigation to the profile screen
-          }
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-              color: Colors.black,
-            ),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.favorite,
-              color: Colors.black,
-            ),
-            label: 'Love',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.store,
-              color: Colors.black,
-            ),
-            label: 'Store',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person,
-              color: Colors.black,
-            ),
-            label: 'Profile',
-          ),
-        ],
+      bottomNavigationBar: Container(
+        height: 70,
+        child: GNav(
+            gap: 20,
+            backgroundColor: Color.fromARGB(255, 148, 56, 142),
+            color: Colors.white,
+            activeColor: Colors.white,
+            tabBackgroundColor: Colors.blueGrey,
+            tabs: [
+              GButton(
+                icon: Icons.home,
+                text: "Home",
+              ),
+              GButton(
+                icon: Icons.favorite_outline,
+                text: "Like",
+              ),
+              GButton(
+                icon: Icons.shopping_cart,
+                text: "Cart",
+                onPressed: () {
+                  Navigator.pushNamed(context, "/cart_screen");
+                },
+              ),
+              GButton(
+                icon: Icons.person,
+                text: "Profile",
+              )
+            ]),
       ),
     );
   }

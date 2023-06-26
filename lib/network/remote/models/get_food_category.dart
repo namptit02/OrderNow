@@ -1,4 +1,4 @@
-import 'package:flutter_application_chuyenman/network/local/models/food_category_item.dart';
+import 'package:flutter_application_chuyenman/network/remote/models/food_category_item.dart';
 
 class GetCategoryListItemResponse {
   final List<FoodCategoryItem> listCategoryItem;

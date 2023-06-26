@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_chuyenman/view/cart/cart_screen.dart';
 // import 'package:flutter/widgets.dart';
 import 'package:flutter_application_chuyenman/view/homepage/home_screen.dart';
 import 'package:flutter_application_chuyenman/view/login/login.dart';
@@ -31,6 +32,12 @@ class AppRouter {
           // args: settings.arguments as ScreenArgument,
           settings: settings,
         );
+      case AppRouteName.cart_screen:
+        return MaterialPageRoute(
+          builder: (context) => const CartScreen(),
+          // args: settings.arguments as ScreenArgument,
+          settings: settings,
+        );
     }
     return null;
   }
@@ -44,4 +51,5 @@ class AppRouteName {
   static const login = "/login";
   // ignore: constant_identifier_names
   static const home_screen = "/home_screen";
+  static const cart_screen = "/cart_screen";
 }
