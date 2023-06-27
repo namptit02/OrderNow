@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_chuyenman/router/app_router.dart';
 import 'package:flutter_application_chuyenman/themes/theme_cubit.dart';
+import 'package:flutter_application_chuyenman/view/cart/view_cart/cart_cubit.dart';
 
 // import 'package:flutter_application_chuyenman/view/homepage/home_screen.dart';
 import 'package:flutter_application_chuyenman/view/login/login.dart';
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ThemeCubit(),
+      create: (context) => CartCubit(),
       child: MaterialApp(
         initialRoute: AppRouteName.splash,
         onGenerateRoute: AppRouter.onGeneratedRoute,

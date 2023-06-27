@@ -34,7 +34,7 @@ class AppRouter {
         );
       case AppRouteName.cart_screen:
         return MaterialPageRoute(
-          builder: (context) => CartScreen(cartItems: []),
+          builder: (context) => CartScreen(),
           // args: settings.arguments as ScreenArgument,
           settings: settings,
         );
