@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter_application_chuyenman/network/configs/network_constains.dart';
-import 'package:flutter_application_chuyenman/network/remote/models/food_category_item.dart';
-import 'package:flutter_application_chuyenman/network/remote/models/get_food_category.dart';
+import 'package:flutter_application_chuyenman/network/remote/models/food_item.dart';
+import 'package:flutter_application_chuyenman/network/remote/models/get_food.dart';
 import 'package:flutter_application_chuyenman/network/remote/models/get_shopping.dart';
 import 'package:flutter_application_chuyenman/network/remote/models/post_shopping_item.dart';
 import 'package:flutter_application_chuyenman/network/remote/models/shopping_item.dart';

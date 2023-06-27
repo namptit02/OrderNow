@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_application_chuyenman/network/remote/models/cart_item.dart';
+import 'package:flutter_application_chuyenman/view/cart/cart_screen.dart';
 
 class DetailFood extends StatefulWidget {
   final String image_category;
   final String text_category;
+  final String store;
+  final int price;
 
   const DetailFood(
-      {Key? key, required this.image_category, required this.text_category})
+      {Key? key,
+      required this.image_category,
+      required this.text_category,
+      required this.store,
+      required this.price})
       : super(key: key);
 
   @override
@@ -15,12 +23,13 @@ class DetailFood extends StatefulWidget {
 }
 
 class _DetailFoodState extends State<DetailFood> {
+  List<CartItem> cartItems = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('View Food'),
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Color.fromARGB(255, 148, 56, 142),
       ),
       body: Container(
         width: double.infinity,
@@ -33,8 +42,8 @@ class _DetailFoodState extends State<DetailFood> {
               // begin: Alignment.topCenter,
               // end: Alignment.bottomCenter,
               colors: [
-                Color(0xFFBBA9ED), // replace with your desired starting color
-                Color(0xFFFEFEFE), // replace with your desired ending color
+                Color(0xffb4a0eb), // replace with your desired starting color
+                Color(0xffd4cde8), // replace with your desired ending color
               ],
               stops: [
                 0.0909, // replace with your desired stop value for the first color
@@ -47,15 +56,17 @@ class _DetailFoodState extends State<DetailFood> {
           ),
           child: Column(
             children: [
-              Container(
-                alignment: Alignment.topCenter,
-                padding: EdgeInsets.only(top: 20),
+              // alignment: Alignment.topCenter,
+              // padding: EdgeInsets.only(top: 20),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(50.0),
                 child: Image.network(
                   widget.image_category,
-                  width: 200,
+                  width: 300,
                   height: 300,
                 ),
               ),
+
               Expanded(
                 child: Container(
                   width: double.infinity,
@@ -71,7 +82,7 @@ class _DetailFoodState extends State<DetailFood> {
                     ],
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 100),
+                    padding: const EdgeInsets.only(top: 50),
                     child: Column(
                       children: [
                         Text(
@@ -84,6 +95,130 @@ class _DetailFoodState extends State<DetailFood> {
                             letterSpacing: 3.0,
                           ),
                         ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        Container(
+                          width: double.infinity,
+                          height: 2,
+                          decoration: const BoxDecoration(
+                              color: Color.fromARGB(255, 148, 56, 142)),
+                        ),
+                        Row(
+                          // mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset("assets/images/logovitri.png"),
+                            Text(
+                              widget.store,
+                              style: const TextStyle(
+                                color: Color(0xFF000000),
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.w700,
+                                height: 1.2,
+                                letterSpacing: 3.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                          width: double.infinity,
+                          height: 2,
+                          decoration: const BoxDecoration(
+                              color: Color.fromARGB(255, 148, 56, 142)),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20, top: 20),
+                          child: Row(
+                            children: const [
+                              Text(
+                                "Price",
+                                style: TextStyle(
+                                  color: Color(0xFF000000),
+                                  fontSize: 16,
+                                  // fontWeight: FontWeight.w500,
+                                  height: 1.2,
+                                  letterSpacing: 3.0,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20, top: 20),
+                          child: Row(
+                            children: [
+                              Text(
+                                "\$${widget.price.toString()}",
+                                style: const TextStyle(
+                                  color: Color(0xFF000000),
+                                  fontSize: 30,
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.w600,
+                                  height: 1.0,
+                                  letterSpacing: 3.0,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 120),
+                                child: Container(
+                                  width: 174,
+                                  height: 35,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Color.fromARGB(255, 148, 56, 142),
+                                  ),
+                                  child: Center(
+                                      child: TextButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        cartItems.add(
+                                          CartItem(
+                                              image: widget.image_category,
+                                              text: widget.text_category,
+                                              price: widget.price),
+                                        );
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => CartScreen(
+                                                cartItems: cartItems),
+                                          ),
+                                        );
+                                      });
+
+                                      print(cartItems[0].text);
+                                    },
+                                    child: Container(
+                                      width: 174,
+                                      height: 35,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color:
+                                            Color.fromARGB(255, 148, 56, 142),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          'Add to Cart',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  )),
+                                ),
+                              )
+                            ],
+                          ),
+                        )
                       ],
                     ),
                   ),

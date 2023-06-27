@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_chuyenman/network/data_state/data_state.dart';
-import 'package:flutter_application_chuyenman/network/remote/models/food_category_item.dart';
+import 'package:flutter_application_chuyenman/network/remote/models/food_item.dart';
 import 'package:flutter_application_chuyenman/network/remote/models/shopping_item.dart';
 import 'package:flutter_application_chuyenman/network/repositories/home_repository_impl.dart';
 import 'package:flutter_application_chuyenman/view/detaill_food/detail_food.dart';
@@ -37,60 +37,60 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   // ignore: unused_element
-  // void _postItem() async {
-  //   setState(() {
-  //     isLoading = true;
-  //   });
-  //   final response =
-  //       await HomeRepositoryImpl().postListShoppingItem(ShoppingItem(
-  //     model: modelController.text,
-  //     name: nameController.text,
-  //     price: int.tryParse(priceController.text) ?? 0,
-  //   ));
-  //   setState(() {
-  //     isLoading = false;
-  //   });
-  //   if (response is DataSuccess) {
-  //     Fluttertoast.showToast(
-  //       msg: "Post Item thanh cong",
-  //       toastLength: Toast.LENGTH_LONG,
-  //       gravity: ToastGravity.TOP,
-  //       timeInSecForIosWeb: 1,
-  //       backgroundColor: Colors.blue,
-  //       textColor: Colors.white,
-  //       fontSize: 16.0,
-  //     );
-  //     _getItems();
-  //   } else {
-  //     Fluttertoast.showToast(
-  //       msg: "Post Item that bai",
-  //       toastLength: Toast.LENGTH_LONG,
-  //       gravity: ToastGravity.TOP,
-  //       timeInSecForIosWeb: 1,
-  //       backgroundColor: Colors.red,
-  //       textColor: Colors.white,
-  //       fontSize: 16.0,
-  //     );
-  //   }
-  // }
+  void _postItem() async {
+    setState(() {
+      isLoading = true;
+    });
+    final response =
+        await HomeRepositoryImpl().postListShoppingItem(ShoppingItem(
+      model: modelController.text,
+      name: nameController.text,
+      price: int.tryParse(priceController.text) ?? 0,
+    ));
+    setState(() {
+      isLoading = false;
+    });
+    if (response is DataSuccess) {
+      Fluttertoast.showToast(
+        msg: "Post Item thanh cong",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.TOP,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.blue,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+      _getItems();
+    } else {
+      Fluttertoast.showToast(
+        msg: "Post Item that bai",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.TOP,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+    }
+  }
 
-  // List<ShoppingItem> shoppingList = [];
+  List<ShoppingItem> shoppingList = [];
 
-  // void _getItems() async {
-  //   setState(() {
-  //     isLoading = true;
-  //   });
-  //   final response = await HomeRepositoryImpl().getListShoppingItem();
+  void _getItems() async {
+    setState(() {
+      isLoading = true;
+    });
+    final response = await HomeRepositoryImpl().getListShoppingItem();
 
-  //   if (response is DataSuccess) {
-  //     setState(() {
-  //       shoppingList = response.data?.listShoppingItem ?? [];
-  //     });
-  //   }
-  //   setState(() {
-  //     isLoading = false;
-  //   });
-  // }
+    if (response is DataSuccess) {
+      setState(() {
+        shoppingList = response.data?.listShoppingItem ?? [];
+      });
+    }
+    setState(() {
+      isLoading = false;
+    });
+  }
 
   List<FoodCategoryItem> categoryList = [];
   void _getCategoryItems() async {
@@ -157,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     // ignore: avoid_unnecessary_containers
                     child: Container(
                       child: Text(
-                        'Welcome, ${widget.args.usernameValue?.split('@')?.first ?? "null"}',
+                        'Welcome, ${widget.args.usernameValue.split('@').first}',
                         style: const TextStyle(
                             fontSize: 20, fontWeight: FontWeight.w600),
                       ),
@@ -219,7 +219,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     // width: double.infinity,
                     height: 150,
                     child: ListView.builder(
@@ -241,15 +241,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                       BorderRadius.all(Radius.circular(15)),
                                   color: Color.fromARGB(255, 255, 255, 255)),
                               child: Image.network(
-                                categoryList[index].imageCategory ?? "",
+                                categoryList[index].imageCategory,
                                 width: 100,
                                 height: 100,
                                 fit: BoxFit.contain,
                               ),
                             ),
-                            SizedBox(height: 8),
+                            const SizedBox(height: 8),
                             Text(
-                              categoryList[index].textCategory ?? "",
+                              categoryList[index].type,
                               style: const TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
@@ -261,8 +261,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 19),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 19),
                     child: Text("Recommended",
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.w600)),
@@ -293,6 +293,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       .imageCategory,
                                               text_category: categoryList[index]
                                                   .textCategory,
+                                              store: categoryList[index].store,
+                                              price: categoryList[index]
+                                                  .priceCategory,
                                             )));
                               },
                               child: Container(
@@ -305,18 +308,32 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                                 child: Row(
                                   children: [
-                                    Container(
+                                    SizedBox(
                                       width: 200,
                                       child: Padding(
                                         padding: const EdgeInsets.only(top: 30),
                                         child: Column(
                                           children: [
-                                            Text(categoryList[index]
-                                                    .textCategory ??
-                                                ""),
-                                            Text(categoryList[index]
-                                                .priceCategory
-                                                .toString()),
+                                            Text(
+                                              categoryList[index].textCategory,
+                                              style: const TextStyle(
+                                                color: Color(0xFF000000),
+                                                fontSize: 20.0,
+                                                fontWeight: FontWeight.w700,
+                                                height: 1.2,
+                                                letterSpacing: 3.0,
+                                              ),
+                                            ),
+                                            Text(
+                                              "\$${categoryList[index].priceCategory.toString()}",
+                                              style: const TextStyle(
+                                                color: Color(0xFF000000),
+                                                fontSize: 20.0,
+                                                fontWeight: FontWeight.w700,
+                                                height: 1.2,
+                                                letterSpacing: 3.0,
+                                              ),
+                                            ),
                                             // Text(shoppingList[index].model ?? ""),
                                             // Text(shoppingList[index]
                                             //     .price
@@ -326,7 +343,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                     ),
                                     Image.network(
-                                      categoryList[index].imageCategory ?? "",
+                                      categoryList[index].imageCategory,
                                       width: 120,
                                       height: 100,
                                     ),
