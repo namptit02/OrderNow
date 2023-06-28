@@ -3,13 +3,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_chuyenman/network/data_state/data_state.dart';
 import 'package:flutter_application_chuyenman/network/remote/models/food_item.dart';
-import 'package:flutter_application_chuyenman/network/remote/models/shopping_item.dart';
+// import 'package:flutter_application_chuyenman/network/remote/models/shopping_item.dart';
 import 'package:flutter_application_chuyenman/network/repositories/home_repository_impl.dart';
+import 'package:flutter_application_chuyenman/view/bottom_nav_bar/bottom_navbar_cubit.dart';
 import 'package:flutter_application_chuyenman/view/detaill_food/detail_food.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
-import '../../common/authentication.dart';
+// import '../../common/authentication.dart';
 // import 'package:http/http.dart' as http;
 
 class HomeScreen extends StatefulWidget {
@@ -37,60 +39,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   // ignore: unused_element
-  void _postItem() async {
-    setState(() {
-      isLoading = true;
-    });
-    final response =
-        await HomeRepositoryImpl().postListShoppingItem(ShoppingItem(
-      model: modelController.text,
-      name: nameController.text,
-      price: int.tryParse(priceController.text) ?? 0,
-    ));
-    setState(() {
-      isLoading = false;
-    });
-    if (response is DataSuccess) {
-      Fluttertoast.showToast(
-        msg: "Post Item thanh cong",
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.TOP,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.blue,
-        textColor: Colors.white,
-        fontSize: 16.0,
-      );
-      _getItems();
-    } else {
-      Fluttertoast.showToast(
-        msg: "Post Item that bai",
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.TOP,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0,
-      );
-    }
-  }
-
-  List<ShoppingItem> shoppingList = [];
-
-  void _getItems() async {
-    setState(() {
-      isLoading = true;
-    });
-    final response = await HomeRepositoryImpl().getListShoppingItem();
-
-    if (response is DataSuccess) {
-      setState(() {
-        shoppingList = response.data?.listShoppingItem ?? [];
-      });
-    }
-    setState(() {
-      isLoading = false;
-    });
-  }
 
   List<FoodCategoryItem> categoryList = [];
   void _getCategoryItems() async {
@@ -119,32 +67,25 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
-      body: WillPopScope(
-        onWillPop: () async {
-          return false;
-        },
-        child: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Color(0xffb4a0eb),
-                Color(0xffd4cde8),
-              ],
-              stops: [0.0, 1.0],
-            ),
-          ),
-          // appBar: AppBar(
-          //   centerTitle: true,
-          //   backgroundColor: Colors.blue,
-          //   title: const Text("Danh sách thẻ"),
-          // ),
-          width: double.infinity,
-          height: double.infinity,
-          // ignore: avoid_unnecessary_containers
+        resizeToAvoidBottomInset: true,
+        body: WillPopScope(
+          onWillPop: () async {
+            return false;
+          },
           child: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xffb4a0eb),
+                  Color(0xffd4cde8),
+                ],
+                stops: [0.0, 1.0],
+              ),
+            ),
+            width: double.infinity,
+            height: double.infinity,
             child: SingleChildScrollView(
               physics: NeverScrollableScrollPhysics(),
               child: Column(
@@ -163,29 +104,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
-                  // ElevatedButton(onPressed: () {}, child: Text("ChangeTheme")),
-                  // Container(
-                  //   child: ElevatedButton(
-                  //     style: ElevatedButton.styleFrom(
-                  //       // ignore: deprecated_member_use
-                  //       primary: const Color(0xff8359E3),
-                  //       shape: RoundedRectangleBorder(
-                  //         borderRadius: BorderRadius.circular(35),
-                  //       ),
-                  //     ),
-                  //     onPressed: () async {
-                  //       try {
-                  //         await Auth().logOut();
-                  //       } catch (error) {
-                  //         // ignore: avoid_print
-                  //         print(error.toString());
-                  //       }
-                  //     },
-                  //     child: const Text(
-                  //       "Log out",
-                  //     ),
-                  //   ),
-                  // ),
                   Container(
                     margin: const EdgeInsets.only(left: 19, top: 32),
                     width: 353,
@@ -274,9 +192,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     margin: const EdgeInsets.only(top: 0),
                     child: SingleChildScrollView(
                       child: Column(
-                        // mainAxisAlignment: MainAxisAlignment.center,
-                        // mainAxisSize: MainAxisSize.min,
-                        // crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           ListView.separated(
                             shrinkWrap: true,
@@ -297,6 +212,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               price: categoryList[index]
                                                   .priceCategory,
                                             )));
+                                // Navigator.pushNamed(context, "/detail_food", );
                               },
                               child: Container(
                                 width: 353,
@@ -334,10 +250,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 letterSpacing: 3.0,
                                               ),
                                             ),
-                                            // Text(shoppingList[index].model ?? ""),
-                                            // Text(shoppingList[index]
-                                            //     .price
-                                            //     .toString()),
                                           ],
                                         ),
                                       ),
@@ -372,38 +284,52 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-      ),
-      bottomNavigationBar: Container(
-        height: 70,
-        child: GNav(
-            gap: 20,
-            backgroundColor: Color.fromARGB(255, 148, 56, 142),
-            color: Colors.white,
-            activeColor: Colors.white,
-            tabBackgroundColor: Colors.blueGrey,
-            tabs: [
-              GButton(
-                icon: Icons.home,
-                text: "Home",
+        bottomNavigationBar: BlocBuilder<BottomNavBarCubit, BottomNavBarState>(
+          builder: (context, state) {
+            return Container(
+              height: 70,
+              child: GNav(
+                gap: 20,
+                backgroundColor: Color.fromARGB(255, 148, 56, 142),
+                color: Colors.white,
+                activeColor: Colors.white,
+                tabBackgroundColor: Colors.blueGrey,
+                selectedIndex: state.index,
+                tabs: [
+                  GButton(
+                    icon: Icons.home,
+                    text: "Home",
+                    onPressed: () {
+                      context.read<BottomNavBarCubit>().selectHome();
+                    },
+                  ),
+                  GButton(
+                    icon: Icons.favorite_outline,
+                    text: "Like",
+                    onPressed: () {
+                      context.read<BottomNavBarCubit>().selectLike();
+                    },
+                  ),
+                  GButton(
+                    icon: Icons.shopping_cart,
+                    text: "Cart",
+                    onPressed: () {
+                      context.read<BottomNavBarCubit>().selectCart();
+                      Navigator.pushNamed(context, "/cart_screen");
+                    },
+                  ),
+                  GButton(
+                    icon: Icons.person,
+                    text: "Profile",
+                    onPressed: () {
+                      context.read<BottomNavBarCubit>().selectProfile();
+                    },
+                  )
+                ],
               ),
-              GButton(
-                icon: Icons.favorite_outline,
-                text: "Like",
-              ),
-              GButton(
-                icon: Icons.shopping_cart,
-                text: "Cart",
-                onPressed: () {
-                  Navigator.pushNamed(context, "/cart_screen");
-                },
-              ),
-              GButton(
-                icon: Icons.person,
-                text: "Profile",
-              )
-            ]),
-      ),
-    );
+            );
+          },
+        ));
   }
 }
 
@@ -412,7 +338,7 @@ class ScreenArgument {
 
   ScreenArgument({required this.usernameValue});
 }
-
+//form Post////////////////////////////////////////////////////////////////////////////////////
   // Form(
                   //     child: Column(
                   //   children: [
@@ -450,3 +376,86 @@ class ScreenArgument {
 
                    // ignore: avoid_unnecessary_containers
                 
+                // change Themes
+                ///////////////////////////////////////////////////////////////////////////
+                     // ElevatedButton(onPressed: () {}, child: Text("ChangeTheme")),
+                  // Container(
+                  //   child: ElevatedButton(
+                  //     style: ElevatedButton.styleFrom(
+                  //       // ignore: deprecated_member_use
+                  //       primary: const Color(0xff8359E3),
+                  //       shape: RoundedRectangleBorder(
+                  //         borderRadius: BorderRadius.circular(35),
+                  //       ),
+                  //     ),
+                  //     onPressed: () async {
+                  //       try {
+                  //         await Auth().logOut();
+                  //       } catch (error) {
+                  //         // ignore: avoid_print
+                  //         print(error.toString());
+                  //       }
+                  //     },
+                  //     child: const Text(
+                  //       "Log out",
+                  //     ),
+                  //   ),
+                  // ),
+
+
+
+                  //////////////////////////get va post
+  //                 void _postItem() async {
+  //   setState(() {
+  //     isLoading = true;
+  //   });
+  //   final response =
+  //       await HomeRepositoryImpl().postListShoppingItem(ShoppingItem(
+  //     model: modelController.text,
+  //     name: nameController.text,
+  //     price: int.tryParse(priceController.text) ?? 0,
+  //   ));
+  //   setState(() {
+  //     isLoading = false;
+  //   });
+  //   if (response is DataSuccess) {
+  //     Fluttertoast.showToast(
+  //       msg: "Post Item thanh cong",
+  //       toastLength: Toast.LENGTH_LONG,
+  //       gravity: ToastGravity.TOP,
+  //       timeInSecForIosWeb: 1,
+  //       backgroundColor: Colors.blue,
+  //       textColor: Colors.white,
+  //       fontSize: 16.0,
+  //     );
+  //     _getItems();
+  //   } else {
+  //     Fluttertoast.showToast(
+  //       msg: "Post Item that bai",
+  //       toastLength: Toast.LENGTH_LONG,
+  //       gravity: ToastGravity.TOP,
+  //       timeInSecForIosWeb: 1,
+  //       backgroundColor: Colors.red,
+  //       textColor: Colors.white,
+  //       fontSize: 16.0,
+  //     );
+  //   }
+  // }
+
+  // List<ShoppingItem> shoppingList = [];
+
+  // void _getItems() async {
+  //   setState(() {
+  //     isLoading = true;
+  //   });
+  //   final response = await HomeRepositoryImpl().getListShoppingItem();
+
+  //   if (response is DataSuccess) {
+  //     setState(() {
+  //       shoppingList = response.data?.listShoppingItem ?? [];
+  //     });
+  //   }
+  //   setState(() {
+  //     isLoading = false;
+  //   });
+  // }

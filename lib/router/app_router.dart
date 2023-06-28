@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_chuyenman/view/cart/cart_screen.dart';
+import 'package:flutter_application_chuyenman/view/detaill_food/detail_food.dart';
 // import 'package:flutter/widgets.dart';
 import 'package:flutter_application_chuyenman/view/homepage/home_screen.dart';
 import 'package:flutter_application_chuyenman/view/login/login.dart';
@@ -35,9 +36,15 @@ class AppRouter {
       case AppRouteName.cart_screen:
         return MaterialPageRoute(
           builder: (context) => CartScreen(),
-          // args: settings.arguments as ScreenArgument,
           settings: settings,
         );
+      // case AppRouteName.detail_food:
+      //   return MaterialPageRoute(
+      //     builder: (context) => const DetailFood(
+
+      //     ),
+      //     settings: settings,
+      //   );
     }
     return null;
   }
@@ -52,4 +59,5 @@ class AppRouteName {
   // ignore: constant_identifier_names
   static const home_screen = "/home_screen";
   static const cart_screen = "/cart_screen";
+  static const detail_food = "/detail_food";
 }
