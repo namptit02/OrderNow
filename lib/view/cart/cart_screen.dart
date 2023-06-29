@@ -3,6 +3,7 @@ import 'package:flutter_application_chuyenman/network/remote/models/cart_item.da
 import 'package:flutter_application_chuyenman/view/bottom_nav_bar/bottom_navbar_cubit.dart';
 import 'package:flutter_application_chuyenman/view/cart/view_cart/cart_cubit.dart';
 import 'package:flutter_application_chuyenman/view/homepage/home_screen.dart';
+import 'package:flutter_application_chuyenman/view/map/map_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
@@ -87,7 +88,14 @@ class CartScreen extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const MapScreen(),
+                      ),
+                    );
+                  },
                   child: Text('Confirm'),
                 ),
               ),

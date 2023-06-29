@@ -163,7 +163,7 @@ class DetailFood extends StatelessWidget {
                                           image: image_category,
                                           text: text_category,
                                           price: price,
-                                          quantity: 0,
+                                          quantity: 1,
                                         );
                                         context
                                             .read<CartCubit>()
