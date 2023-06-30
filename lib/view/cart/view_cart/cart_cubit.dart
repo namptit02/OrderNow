@@ -4,8 +4,37 @@ import 'package:flutter_application_chuyenman/network/remote/models/cart_item.da
 class CartCubit extends Cubit<List<CartItem>> {
   CartCubit() : super([]);
 
+  // void addToCart(CartItem item) {
+  //   emit([...state, item]);
+  // }
   void addToCart(CartItem item) {
-    emit([...state, item]);
+    List<CartItem> updatedItems = [...state];
+
+    // Kiểm tra xem mặt hàng đã tồn tại trong giỏ hàng chưa
+    int existingIndex =
+        updatedItems.indexWhere((cartItem) => cartItem.idCart == item.idCart);
+
+    if (existingIndex != -1) {
+      // Nếu mặt hàng đã tồn tại, tăng số lượng của nó lên 1
+      CartItem existingItem = updatedItems[existingIndex];
+      int updatedQuantity = existingItem.quantityCart + 1;
+
+      // Tạo bản sao của danh sách các mặt hàng đã cập nhật
+      List<CartItem> updatedItemsCopy = List.from(updatedItems);
+
+      // Cập nhật số lượng của mặt hàng hiện có trong danh sách
+      updatedItemsCopy[existingIndex] =
+          existingItem.copyWith(quantityCart: updatedQuantity);
+
+      // Cập nhật trạng thái giỏ hàng với danh sách đã cập nhật
+      emit(updatedItemsCopy);
+    } else {
+      // Nếu mặt hàng không tồn tại trong giỏ hàng, thêm vào giỏ hàng
+      updatedItems.add(item);
+
+      // Cập nhật trạng thái giỏ hàng với danh sách đã cập nhật
+      emit(updatedItems);
+    }
   }
 
   void removeFromCart(CartItem item) {
@@ -14,7 +43,7 @@ class CartCubit extends Cubit<List<CartItem>> {
 
   void updateQuantity(CartItem item, int quantity) {
     List<CartItem> updatedItems = state
-        .map((e) => e == item ? item.copyWith(quantity: quantity) : e)
+        .map((e) => e == item ? item.copyWith(quantityCart: quantity) : e)
         .toList();
     emit(updatedItems);
   }

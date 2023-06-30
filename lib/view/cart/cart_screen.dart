@@ -28,29 +28,29 @@ class CartScreen extends StatelessWidget {
                     itemBuilder: (context, index) {
                       final cartItem = cartItems[index];
                       return ListTile(
-                        leading: Image.network(cartItem.image),
-                        title: Text(cartItem.text),
+                        leading: Image.network(cartItem.imageCart),
+                        title: Text(cartItem.textCart),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Price: \$${cartItem.price.toString()}'),
+                            Text('Price: \$${cartItem.priceCart.toString()}'),
                             Row(
                               children: [
                                 IconButton(
                                   icon: Icon(Icons.remove),
                                   onPressed: () {
-                                    int newQuantity = cartItem.quantity - 1;
+                                    int newQuantity = cartItem.quantityCart - 1;
                                     if (newQuantity >= 0) {
                                       context.read<CartCubit>().updateQuantity(
                                           cartItem, newQuantity);
                                     }
                                   },
                                 ),
-                                Text(cartItem.quantity.toString()),
+                                Text(cartItem.quantityCart.toString()),
                                 IconButton(
                                   icon: Icon(Icons.add),
                                   onPressed: () {
-                                    int newQuantity = cartItem.quantity + 1;
+                                    int newQuantity = cartItem.quantityCart + 1;
                                     context
                                         .read<CartCubit>()
                                         .updateQuantity(cartItem, newQuantity);

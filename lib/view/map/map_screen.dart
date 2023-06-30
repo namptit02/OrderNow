@@ -245,10 +245,6 @@ class _MapScreenState extends State<MapScreen> {
               ),
             ),
           ),
-          Text(
-            'Current Address: $_currentAddress',
-            style: TextStyle(fontSize: 16),
-          ),
         ],
       ),
     );

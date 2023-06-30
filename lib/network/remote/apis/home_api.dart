@@ -52,6 +52,31 @@ class HomeApi {
         shoppingItem: item, responseCode: response.statusCode);
   }
 
+  // Future<GetCategoryListItemResponse> getListCategoryItem() async {
+  //   var request = http.Request(
+  //       'GET', Uri.parse('${NetworkConstanst.baseUrl}/food_items.json'));
+  //   request.body = '''''';
+
+  //   http.StreamedResponse response = await request.send();
+
+  //   final data = (await response.stream.bytesToString());
+  //   //decode json(tu string json -> Map<String,dynamic>)
+  //   final dataDecode = (jsonDecode(data) as Map<String, dynamic>);
+  //   List<FoodCategoryItem> foodCategoryList = [];
+  //   // print(dataDecode);
+  //   // print(dataDecode.entries.toList());
+
+  //   for (var item in dataDecode.entries) {
+  //     //decode json -> shoppingitem
+  //     final itemDecode = FoodCategoryItem.fromJson(item.value);
+  //     //them lai vao mang shoppingList
+
+  //     foodCategoryList.add(itemDecode);
+  //   }
+  //   return GetCategoryListItemResponse(
+  //       listCategoryItem: foodCategoryList, responseCode: response.statusCode);
+  // }
+
   Future<GetCategoryListItemResponse> getListCategoryItem() async {
     var request = http.Request(
         'GET', Uri.parse('${NetworkConstanst.baseUrl}/food_items.json'));

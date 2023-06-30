@@ -172,57 +172,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                     );
                                   });
                             }
-                          }
-
-                          // if (usernameController.text.length < 6 &&
-                          //     passwordController.text.length < 6 &&
-                          //     usernameController.text.isNotEmpty &&
-                          //     passwordController.text.isNotEmpty) {
-                          //   setState(() {
-                          //     usernameError =
-                          //         "Username không được nhỏ hơn 6 ký tự";
-                          //     passwordError =
-                          //         "Password không được nhỏ hơn 6 kí tự";
-                          //   });
-                          // }
-                          // if (usernameController.text.length >= 6 &&
-                          //     passwordController.text.length >= 6) {
-                          //   setState(() {
-                          //     usernameError = null;
-                          //     passwordError = null;
-                          //     usernameValue = usernameController.text;
-                          //     passwordValue = passwordController.text;
-                          //   });
-                          // }
-                          // if (usernameController.text.isEmpty ||
-                          //     passwordController.text.isEmpty) {
-                          //   setState(() {
-                          //     usernameError = "Username không được để rỗng";
-                          //     passwordError = "Password không được để rỗng";
-                          //   });
-                          // }
-                          // if (usernameController.text.contains(" ") ||
-                          //     passwordController.text.contains(" ")) {
-                          //   setState(() {
-                          //     usernameError = "Username không được để dấu cách";
-                          //     passwordError = "Password không được để dấu cách";
-                          //   });
-                          // }
-
-                          // if (usernameController.text.toLowerCase() ==
-                          //         "namhoang2k2" &&
-                          //     passwordController.text == "123456") {
-                          //   await prefs?.setString(
-                          //     "loginData",
-                          //     usernameController.text,
-                          //   );
-                          //   print("luu du lieu thanh cong");
-                          //   // ignore: use_build_context_synchronously
-                          //   Navigator.pushNamed(context, "/screen2",
-                          //       arguments: ScreenArgument(
-                          //           usernameValue: usernameController.text));
-                          // }
-                          ,
+                          },
                           child: const Text(
                             "Reset password",
                           ),

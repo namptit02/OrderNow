@@ -5,16 +5,18 @@ import 'package:flutter_application_chuyenman/view/cart/view_cart/cart_cubit.dar
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DetailFood extends StatelessWidget {
-  final String image_category;
-  final String text_category;
-  final String store;
-  final int price;
-  const DetailFood({
+  final int idDetailFood;
+  final String imageDetailFood;
+  final String textDetailFood;
+  final String storeDetailFood;
+  final int priceDetailFood;
+  DetailFood({
     Key? key,
-    required this.image_category,
-    required this.text_category,
-    required this.store,
-    required this.price,
+    required this.idDetailFood,
+    required this.imageDetailFood,
+    required this.textDetailFood,
+    required this.storeDetailFood,
+    required this.priceDetailFood,
   }) : super(key: key);
 
   @override
@@ -47,7 +49,7 @@ class DetailFood extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(50.0),
                 child: Image.network(
-                  image_category,
+                  imageDetailFood,
                   width: 300,
                   height: 300,
                 ),
@@ -71,7 +73,7 @@ class DetailFood extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(
-                          text_category,
+                          textDetailFood,
                           style: const TextStyle(
                             color: Color(0xFF000000),
                             fontSize: 20.0,
@@ -93,7 +95,7 @@ class DetailFood extends StatelessWidget {
                           children: [
                             Image.asset("assets/images/logovitri.png"),
                             Text(
-                              store,
+                              storeDetailFood,
                               style: const TextStyle(
                                 color: Color(0xFF000000),
                                 fontSize: 20.0,
@@ -137,7 +139,7 @@ class DetailFood extends StatelessWidget {
                           child: Row(
                             children: [
                               Text(
-                                "\$${price.toString()}",
+                                "\$${priceDetailFood.toString()}",
                                 style: const TextStyle(
                                   color: Color(0xFF000000),
                                   fontSize: 30,
@@ -160,11 +162,13 @@ class DetailFood extends StatelessWidget {
                                     child: TextButton(
                                       onPressed: () {
                                         final cartItem = CartItem(
-                                          image: image_category,
-                                          text: text_category,
-                                          price: price,
-                                          quantity: 1,
+                                          idCart: idDetailFood,
+                                          imageCart: imageDetailFood,
+                                          textCart: textDetailFood,
+                                          priceCart: priceDetailFood,
+                                          quantityCart: 1,
                                         );
+
                                         context
                                             .read<CartCubit>()
                                             .addToCart(cartItem);

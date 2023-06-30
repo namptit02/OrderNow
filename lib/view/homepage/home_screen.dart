@@ -203,14 +203,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => DetailFood(
-                                              image_category:
+                                              idDetailFood: categoryList[index]
+                                                  .idCategory,
+                                              imageDetailFood:
                                                   categoryList[index]
                                                       .imageCategory,
-                                              text_category: categoryList[index]
-                                                  .textCategory,
-                                              store: categoryList[index].store,
-                                              price: categoryList[index]
-                                                  .priceCategory,
+                                              textDetailFood:
+                                                  categoryList[index]
+                                                      .textCategory,
+                                              storeDetailFood:
+                                                  categoryList[index].store,
+                                              priceDetailFood:
+                                                  categoryList[index]
+                                                      .priceCategory,
                                             )));
                                 // Navigator.pushNamed(context, "/detail_food", );
                               },
