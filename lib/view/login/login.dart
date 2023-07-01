@@ -8,9 +8,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:flutter_application_chuyenman/view/homepage/home_screen.dart';
 
 class Login extends StatefulWidget {
-  const Login({super.key, required this.title});
+  const Login({super.key});
 
-  final String title;
+  // final String title;
 
   @override
   State<Login> createState() => _LoginState();

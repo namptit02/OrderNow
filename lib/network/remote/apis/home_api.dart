@@ -88,8 +88,6 @@ class HomeApi {
     //decode json(tu string json -> Map<String,dynamic>)
     final dataDecode = (jsonDecode(data) as Map<String, dynamic>);
     List<FoodCategoryItem> foodCategoryList = [];
-    // print(dataDecode);
-    // print(dataDecode.entries.toList());
 
     for (var item in dataDecode.entries) {
       //decode json -> shoppingitem

@@ -3,6 +3,7 @@ import 'package:flutter_application_chuyenman/network/remote/models/cart_item.da
 import 'package:flutter_application_chuyenman/view/cart/cart_screen.dart';
 import 'package:flutter_application_chuyenman/view/cart/view_cart/cart_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_application_chuyenman/network/remote/models/detail_food.dart';
 
 class DetailFood extends StatelessWidget {
   final int idDetailFood;

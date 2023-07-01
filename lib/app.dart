@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       child: const MaterialApp(
         initialRoute: AppRouteName.splash,
         onGenerateRoute: AppRouter.onGeneratedRoute,
-        home: Login(title: 'Đăng nhập'),
+        home: Login(),
       ),
     );
   }

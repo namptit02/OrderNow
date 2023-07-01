@@ -17,6 +17,7 @@ class FoodCategoryItem {
   final String textCategory;
   final String type;
   final String store;
+  final int quantity;
 
   FoodCategoryItem(
       {required this.idCategory,
@@ -24,23 +25,25 @@ class FoodCategoryItem {
       required this.priceCategory,
       required this.textCategory,
       required this.type,
-      required this.store});
+      required this.store,
+      required this.quantity});
 
   FoodCategoryItem copyWith(
-          {
-          // int? idCategory,
+          {int? idCategory,
           String? imageCategory,
           int? priceCategory,
           String? textCategory,
           String? type,
-          String? store}) =>
+          String? store,
+          int? quantity}) =>
       FoodCategoryItem(
           idCategory: idCategory ?? this.idCategory,
           imageCategory: imageCategory ?? this.imageCategory,
           priceCategory: priceCategory ?? this.priceCategory,
           textCategory: textCategory ?? this.textCategory,
           type: type ?? this.type,
-          store: store ?? this.store);
+          store: store ?? this.store,
+          quantity: quantity ?? this.quantity);
 
   factory FoodCategoryItem.fromJson(Map<String, dynamic> json) =>
       FoodCategoryItem(
@@ -49,7 +52,8 @@ class FoodCategoryItem {
           priceCategory: json["price_category"],
           textCategory: json["text_category"],
           type: json["type"],
-          store: json["store"]);
+          store: json["store"],
+          quantity: json["quantity"]);
 
   Map<String, dynamic> toJson() => {
         "id_category": idCategory,
@@ -57,6 +61,7 @@ class FoodCategoryItem {
         "price_category": priceCategory,
         "text_category": textCategory,
         "type": type,
-        "store": store
+        "store": store,
+        "quantity": quantity,
       };
 }

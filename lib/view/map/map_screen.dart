@@ -124,14 +124,15 @@ class MapScreen extends StatefulWidget {
   const MapScreen({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _MapScreenState createState() => _MapScreenState();
 }
 
 class _MapScreenState extends State<MapScreen> {
   late GoogleMapController mapController;
-  LatLng _center = LatLng(21.0285, 105.8542); // Tọa độ trung tâm Việt Nam
+  LatLng _center = const LatLng(21.0285, 105.8542); // Tọa độ trung tâm Việt Nam
 
-  TextEditingController _locationTextController =
+  final TextEditingController _locationTextController =
       TextEditingController(); // Controller cho ô text
   String _currentAddress = ''; // Biến để lưu trữ địa chỉ hiện tại
 
@@ -197,13 +198,8 @@ class _MapScreenState extends State<MapScreen> {
     if (placemarks.isNotEmpty) {
       Placemark currentPlace = placemarks.first;
 
-      String currentAddress = currentPlace.street.toString() +
-          ', ' +
-          (currentPlace.subLocality ??
-              currentPlace.locality ??
-              currentPlace.subAdministrativeArea ??
-              currentPlace.administrativeArea ??
-              '');
+      String currentAddress =
+          '${currentPlace.street}, ${currentPlace.subLocality ?? currentPlace.locality ?? currentPlace.subAdministrativeArea ?? currentPlace.administrativeArea ?? ''}';
 
       setState(() {
         _currentAddress = currentAddress;
@@ -229,7 +225,7 @@ class _MapScreenState extends State<MapScreen> {
               ),
               markers: <Marker>{
                 Marker(
-                  markerId: MarkerId('currentLocation'),
+                  markerId: const MarkerId('currentLocation'),
                   position: _center,
                   infoWindow: const InfoWindow(title: 'Your Location'),
                 ),
@@ -244,6 +240,12 @@ class _MapScreenState extends State<MapScreen> {
                 labelText: 'Address',
               ),
             ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              // Xử lý logic khi người dùng nhấn nút OK
+            },
+            child: const Text('OK'),
           ),
         ],
       ),

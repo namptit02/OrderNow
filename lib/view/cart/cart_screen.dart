@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_chuyenman/network/remote/models/cart_item.dart';
-import 'package:flutter_application_chuyenman/view/bottom_nav_bar/bottom_navbar_cubit.dart';
+
 import 'package:flutter_application_chuyenman/view/cart/view_cart/cart_cubit.dart';
-import 'package:flutter_application_chuyenman/view/homepage/home_screen.dart';
+
 import 'package:flutter_application_chuyenman/view/map/map_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 
 class CartScreen extends StatelessWidget {
+  const CartScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,8 +16,12 @@ class CartScreen extends StatelessWidget {
         title: const Text('My Order'),
         backgroundColor: Colors.deepPurple,
       ),
-      body: BlocBuilder<CartCubit, List<CartItem>>(
+      body: BlocConsumer<CartCubit, List<CartItem>>(
+        listener: (context, cartItems) {},
         builder: (context, cartItems) {
+          int totalPrice =
+              context.select((CartCubit cartCubit) => cartCubit.totalPrice);
+
           return Column(
             children: [
               Expanded(
@@ -27,17 +32,18 @@ class CartScreen extends StatelessWidget {
                     itemCount: cartItems.length,
                     itemBuilder: (context, index) {
                       final cartItem = cartItems[index];
+                      print(cartItem.idCart);
                       return ListTile(
                         leading: Image.network(cartItem.imageCart),
                         title: Text(cartItem.textCart),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Price: \$${cartItem.priceCart.toString()}'),
+                            Text('Price: \$${cartItem.priceCart}'),
                             Row(
                               children: [
                                 IconButton(
-                                  icon: Icon(Icons.remove),
+                                  icon: const Icon(Icons.remove),
                                   onPressed: () {
                                     int newQuantity = cartItem.quantityCart - 1;
                                     if (newQuantity >= 0) {
@@ -48,7 +54,7 @@ class CartScreen extends StatelessWidget {
                                 ),
                                 Text(cartItem.quantityCart.toString()),
                                 IconButton(
-                                  icon: Icon(Icons.add),
+                                  icon: const Icon(Icons.add),
                                   onPressed: () {
                                     int newQuantity = cartItem.quantityCart + 1;
                                     context
@@ -61,27 +67,13 @@ class CartScreen extends StatelessWidget {
                           ],
                         ),
                         trailing: IconButton(
-                          icon: Icon(Icons.delete),
+                          icon: const Icon(Icons.delete),
                           onPressed: () {
                             context.read<CartCubit>().removeFromCart(cartItem);
                           },
                         ),
                       );
                     },
-                    // itemBuilder: (context, index) {
-                    //   final cartItem = cartItems[index];
-                    //   return ListTile(
-                    //     leading: Image.network(cartItem.image),
-                    //     title: Text(cartItem.text),
-                    //     subtitle: Text('Price: \$${cartItem.price.toString()}'),
-                    //     trailing: IconButton(
-                    //       icon: Icon(Icons.delete),
-                    //       onPressed: () {
-                    //         context.read<CartCubit>().removeFromCart(cartItem);
-                    //       },
-                    //     ),
-                    //   );
-                    // },
                   ),
                 ),
               ),
@@ -96,12 +88,20 @@ class CartScreen extends StatelessWidget {
                       ),
                     );
                   },
-                  child: Text('Confirm'),
+                  child: const Text('Confirm'),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  // ignore: unnecessary_brace_in_string_interps
+                  'Total Price: \$${totalPrice}',
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               ),
             ],
           );
-          // ignore: dead_code
         },
       ),
     );

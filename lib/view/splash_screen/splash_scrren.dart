@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     initSharedPref();
     requestPermission();
-    readJson();
+    // readJson();
     super.initState();
   }
 

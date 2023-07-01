@@ -4,6 +4,7 @@ import 'package:flutter_application_chuyenman/view/detaill_food/detail_food.dart
 // import 'package:flutter/widgets.dart';
 import 'package:flutter_application_chuyenman/view/homepage/home_screen.dart';
 import 'package:flutter_application_chuyenman/view/login/login.dart';
+import 'package:flutter_application_chuyenman/view/settings/settings_screen.dart';
 import 'package:flutter_application_chuyenman/view/splash_screen/splash_scrren.dart';
 import 'package:flutter_application_chuyenman/view/widget_tree/widget_tree.dart';
 
@@ -22,7 +23,7 @@ class AppRouter {
         );
       case AppRouteName.login:
         return MaterialPageRoute(
-          builder: (context) => const Login(title: "dang nhap "),
+          builder: (context) => const Login(),
           settings: settings,
         );
       case AppRouteName.home_screen:
@@ -38,11 +39,9 @@ class AppRouter {
           builder: (context) => CartScreen(),
           settings: settings,
         );
-      // case AppRouteName.detail_food:
+      // case AppRouteName.profile:
       //   return MaterialPageRoute(
-      //     builder: (context) => const DetailFood(
-
-      //     ),
+      //     builder: (context) => const SettingScreen(),
       //     settings: settings,
       //   );
     }
@@ -59,5 +58,5 @@ class AppRouteName {
   // ignore: constant_identifier_names
   static const home_screen = "/home_screen";
   static const cart_screen = "/cart_screen";
-  static const detail_food = "/detail_food";
+  static const profile = "/profile_screen";
 }
