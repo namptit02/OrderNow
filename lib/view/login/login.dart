@@ -2,21 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_chuyenman/common/authentication.dart';
 import 'package:flutter_application_chuyenman/view/forgotpassword/forgotpassword.dart';
 import 'package:flutter_application_chuyenman/view/signup/signup.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 // import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // import 'package:flutter_application_chuyenman/view/homepage/home_screen.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   // final String title;
 
   @override
-  State<Login> createState() => _LoginState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginScreenState extends State<LoginScreen> {
   late final TextEditingController usernameController;
   late final TextEditingController passwordController;
   String? usernameValue;
@@ -245,12 +246,32 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                         onPressed: () async {
+                          final password = passwordController.text.trim();
+                          if (password.length < 6) {
+                            Fluttertoast.showToast(
+                              msg:
+                                  "Password must be at least 6 characters long.",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                            );
+                            return;
+                          }
                           try {
                             await Auth().loginWithEmailAndPassword(
                                 email: usernameController.text.trim(),
                                 password: passwordController.text.trim());
+                            Fluttertoast.showToast(
+                              msg: "Logged in successfully",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.SNACKBAR,
+                            );
                           } catch (error) {
-                            // ignore: avoid_print
+                            Fluttertoast.showToast(
+                              msg: "Incorrect password",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.SNACKBAR,
+                            );
+
                             print(error.toString());
                           }
                         },
@@ -289,7 +310,9 @@ class _LoginState extends State<Login> {
                         const SizedBox(
                           width: 59,
                         ),
-                        Image.asset("assets/images/google.png")
+                        GestureDetector(
+                            onTap: () => Auth().signInWithGoogle(),
+                            child: Image.asset("assets/images/google.png"))
                       ],
                     ),
                     const SizedBox(
@@ -309,18 +332,11 @@ class _LoginState extends State<Login> {
                                 TextStyle(decoration: TextDecoration.underline),
                           ),
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SignUpPage()),
-                            );
+                            Navigator.pushNamed(context, "/signup_screen");
                           },
                         )
                       ],
                     )
-                    // Row(
-
-                    // )
                   ],
                 ),
               ),

@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "396462163060",
+    "firebase_url": "https://fir-project-1724a-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "fir-project-1724a",
     "storage_bucket": "fir-project-1724a.appspot.com"
   },
@@ -12,7 +13,20 @@
           "package_name": "com.example.flutter_application_chuyenman"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "396462163060-oq66hac7sbk5utt55hb0grqnk4l66d99.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flutter_application_chuyenman",
+            "certificate_hash": "c2dea664fb4c71b947ab9dc2f8e63c91920f9696"
+          }
+        },
+        {
+          "client_id": "396462163060-t5gndo25kc7pvp25g793cikd7vruq3uq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCF5rj8KFs93i5C_wBXhWM_Go9LTMJIF38"
@@ -20,7 +34,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "396462163060-m36nrqftpgkn6e2giegg7tc5h76ek7je.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

@@ -14,16 +14,3 @@ void main() async {
   await Firebase.initializeApp();
   runApp(const MyApp());
 }
-
-// void initFireNotification() async {
-//   FirebaseMessaging messaging = FirebaseMessaging.instance;
-//   NotificationSettings settings = await messaging.requestPermission(
-//     alert: true,
-//     announcement: false,
-//     badge: true,
-//     carPlay: false,
-//     criticalAlert: false,
-//     provisional: false,
-//     sound: true,
-//   );
-// }

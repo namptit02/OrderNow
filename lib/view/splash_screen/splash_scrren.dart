@@ -1,7 +1,7 @@
 // import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:flutter_application_chuyenman/view/homepage/home_screen.dart';
 // import 'package:flutter_application_chuyenman/user_data.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -25,17 +25,6 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   SharedPreferences? prefs;
-  readJson() async {
-    // ignore: unused_local_variable
-    final String json = await rootBundle.loadString("assets/data.json");
-    // ignore: unused_local_variable
-    final String json2 = await rootBundle.loadString("assets/data2.json");
-    // UserData(username: "username", password: "password", isMale: "isMale");
-    // print(json);
-    // final userResponse = UserResponse.fromJson(jsonDecode(json));
-    // print(userResponse.data?.partnerData?.username);
-    // print(json2);
-  }
 
   void requestPermission() async {
     // ignore: unused_local_variable
@@ -44,7 +33,6 @@ class _SplashScreenState extends State<SplashScreen> {
     ].request();
     if (await Permission.storage.request().isGranted) {
       initSharedPref();
-      // Navigator.pushNamed(context, "/widget_tree");
     }
   }
 

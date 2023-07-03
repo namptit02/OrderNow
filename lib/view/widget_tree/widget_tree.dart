@@ -43,7 +43,7 @@ class WidgetTree extends StatelessWidget {
       builder: (context, snapshotData) {
         if (snapshotData.hasData) {
           final username = snapshotData.data?.email ?? "";
-          if (username == "user22") {
+          if (username == "user22@gmail.com") {
             return const AdminScreen();
           } else {
             return HomeScreen(
@@ -53,7 +53,7 @@ class WidgetTree extends StatelessWidget {
             );
           }
         } else {
-          return const Login();
+          return const LoginScreen();
         }
       },
       stream: Auth().authenStateChanges,

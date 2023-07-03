@@ -5,6 +5,7 @@ import 'package:flutter_application_chuyenman/view/detaill_food/detail_food.dart
 import 'package:flutter_application_chuyenman/view/homepage/home_screen.dart';
 import 'package:flutter_application_chuyenman/view/login/login.dart';
 import 'package:flutter_application_chuyenman/view/settings/settings_screen.dart';
+import 'package:flutter_application_chuyenman/view/signup/signup.dart';
 import 'package:flutter_application_chuyenman/view/splash_screen/splash_scrren.dart';
 import 'package:flutter_application_chuyenman/view/widget_tree/widget_tree.dart';
 
@@ -23,7 +24,7 @@ class AppRouter {
         );
       case AppRouteName.login:
         return MaterialPageRoute(
-          builder: (context) => const Login(),
+          builder: (context) => const LoginScreen(),
           settings: settings,
         );
       case AppRouteName.home_screen:
@@ -39,11 +40,11 @@ class AppRouter {
           builder: (context) => CartScreen(),
           settings: settings,
         );
-      // case AppRouteName.profile:
-      //   return MaterialPageRoute(
-      //     builder: (context) => const SettingScreen(),
-      //     settings: settings,
-      //   );
+      case AppRouteName.signUp:
+        return MaterialPageRoute(
+          builder: (context) => SignUpScreen(),
+          settings: settings,
+        );
     }
     return null;
   }
@@ -59,4 +60,5 @@ class AppRouteName {
   static const home_screen = "/home_screen";
   static const cart_screen = "/cart_screen";
   static const profile = "/profile_screen";
+  static const signUp = "/signup_screen";
 }
