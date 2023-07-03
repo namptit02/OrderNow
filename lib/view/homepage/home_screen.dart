@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_chuyenman/common/authentication.dart';
+import 'package:flutter_application_chuyenman/components/app_colors.dart';
 import 'package:flutter_application_chuyenman/network/data_state/data_state.dart';
 import 'package:flutter_application_chuyenman/network/remote/models/food_item.dart';
 import 'package:flutter_application_chuyenman/network/repositories/home_repository_impl.dart';
@@ -90,8 +91,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Color(0xffb4a0eb),
-                  Color(0xffd4cde8),
+                  // Color(0xffb4a0eb),
+                  AppColors.primaryColor,
+                  AppColors.backgroundColor
+                  // Color(0xffd4cde8),
                 ],
                 stops: [0.0, 1.0],
               ),
@@ -116,35 +119,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             style: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.w600),
                           ),
-                          // ElevatedButton(
-                          //   style: ElevatedButton.styleFrom(
-                          //     // ignore: deprecated_member_use
-                          //     primary: const Color(0xff8359E3),
-                          //     shape: RoundedRectangleBorder(
-                          //       borderRadius: BorderRadius.circular(35),
-                          //     ),
-                          //   ),
-                          //   onPressed: () async {
-                          //     try {
-                          //       await Auth().logOut();
-                          //       // Xóa thông tin đăng nhập đã lưu trong SharedPreferences
-                          //       final prefs =
-                          //           await SharedPreferences.getInstance();
-                          //       prefs.remove("loginData");
-
-                          //       // Đăng xuất tài khoản Google nếu đã đăng nhập bằng nó
-                          //       final googleSignIn = GoogleSignIn();
-                          //       await googleSignIn.signOut();
-                          //     } catch (error) {
-                          //       // ignore: avoid_print
-                          //       print(error.toString());
-                          //     }
-                          //   },
-                          //   child: const Text(
-                          //     "Log out",
-                          //   ),
-                          // ),
-
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               primary: const Color(0xff8359E3),
@@ -232,7 +206,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   shape: BoxShape.rectangle,
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(15)),
-                                  color: Color.fromARGB(255, 255, 255, 255)),
+                                  color: AppColors.backgroundCategoryColor),
                               child: Image.network(
                                 categoryList[index].imageCategory,
                                 width: 100,

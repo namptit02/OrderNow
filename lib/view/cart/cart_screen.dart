@@ -22,6 +22,11 @@ class CartScreen extends StatelessWidget {
           int totalPrice =
               context.select((CartCubit cartCubit) => cartCubit.totalPrice);
 
+          if (cartItems.isEmpty) {
+            return Center(
+              child: Text('Your cart is empty.'),
+            );
+          }
           return Column(
             children: [
               Expanded(
@@ -32,7 +37,7 @@ class CartScreen extends StatelessWidget {
                     itemCount: cartItems.length,
                     itemBuilder: (context, index) {
                       final cartItem = cartItems[index];
-                      print(cartItem.idCart);
+
                       return ListTile(
                         leading: Image.network(cartItem.imageCart),
                         title: Text(cartItem.textCart),
@@ -80,14 +85,16 @@ class CartScreen extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const MapScreen(),
-                      ),
-                    );
-                  },
+                  onPressed: cartItems.isEmpty
+                      ? null // Disable button if cart is empty
+                      : () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const MapScreen(),
+                            ),
+                          );
+                        },
                   child: const Text('Confirm'),
                 ),
               ),
