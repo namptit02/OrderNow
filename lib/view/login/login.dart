@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_chuyenman/common/authentication.dart';
 import 'package:flutter_application_chuyenman/view/forgotpassword/forgotpassword.dart';
-import 'package:flutter_application_chuyenman/view/signup/signup.dart';
+// import 'package:flutter_application_chuyenman/view/signup/signup.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 // import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -272,7 +272,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               gravity: ToastGravity.SNACKBAR,
                             );
 
-                            print(error.toString());
+                            // print(error.toString());
                           }
                         },
                         child: const Text(

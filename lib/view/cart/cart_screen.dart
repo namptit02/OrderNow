@@ -7,8 +7,12 @@ import 'package:flutter_application_chuyenman/view/map/map_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CartScreen extends StatelessWidget {
-  const CartScreen({super.key});
-
+  // const CartScreen({super.key});
+  final List<CartItem> cartItems;
+  final TextEditingController phoneController = TextEditingController();
+  final String username;
+  CartScreen({Key? key, required this.cartItems, required this.username})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +27,14 @@ class CartScreen extends StatelessWidget {
               context.select((CartCubit cartCubit) => cartCubit.totalPrice);
 
           if (cartItems.isEmpty) {
-            return Center(
+            return const Center(
               child: Text('Your cart is empty.'),
             );
           }
           return Column(
             children: [
               Expanded(
-                child: Container(
+                child: SizedBox(
                   width: 400,
                   height: 400,
                   child: ListView.builder(
@@ -84,15 +88,62 @@ class CartScreen extends StatelessWidget {
               ),
               SizedBox(
                 width: double.infinity,
+                // child: ElevatedButton(
+                //   onPressed: cartItems.isEmpty
+                //       ? null // Disable button if cart is empty
+                //       : () {
+                //           Navigator.push(
+                //             context,
+                //             MaterialPageRoute(
+                //               builder: (context) => const MapScreen(),
+                //             ),
+                //           );
+                //         },
+                //   child: const Text('Confirm'),
+                // ),
                 child: ElevatedButton(
                   onPressed: cartItems.isEmpty
-                      ? null // Disable button if cart is empty
+                      ? null
                       : () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const MapScreen(),
-                            ),
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text('Enter Phone Number'),
+                                content: TextField(
+                                  controller: phoneController,
+                                  keyboardType: TextInputType.phone,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Phone Number',
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: const Text('Cancel'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                  TextButton(
+                                    child: const Text('Confirm'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => MapScreen(
+                                            cartItems: cartItems,
+                                            totalPrice: totalPrice,
+                                            phoneNumber: phoneController.text,
+                                            userName: username,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
                           );
                         },
                   child: const Text('Confirm'),

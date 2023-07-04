@@ -60,7 +60,7 @@ class LoginCubit extends Cubit<LoginState> {
         gravity: ToastGravity.SNACKBAR,
       );
       emit(LoginError("Incorrect password"));
-      print(error.toString());
+      // print(error.toString());
     }
   }
 
@@ -76,7 +76,7 @@ class LoginCubit extends Cubit<LoginState> {
       emit(LoginSuccess());
     } catch (error) {
       emit(LoginError("Failed to sign in with Google"));
-      print(error.toString());
+      // print(error.toString());
     }
   }
 

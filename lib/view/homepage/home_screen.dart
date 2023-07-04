@@ -121,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              primary: const Color(0xff8359E3),
+                              backgroundColor: const Color(0xff8359E3),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(35),
                               ),
@@ -140,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 await googleSignIn.signOut();
                                 // Xóa token xác thực của tài khoản Google (nếu có)
                               } catch (error) {
-                                print(error.toString());
+                                // print(error.toString());
                               }
                             },
                             child: const Text(
@@ -266,6 +266,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       priceDetailFood:
                                           filteredCategoryList[index]
                                               .priceCategory,
+                                      userName: widget.args.usernameValue,
                                     ),
                                   ),
                                 );

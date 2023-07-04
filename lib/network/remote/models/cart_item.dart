@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 // // ignore_for_file: public_member_api_docs, sort_constructors_first
 // class CartItem {
 
@@ -56,4 +58,29 @@ class CartItem {
       quantityCart: quantityCart ?? this.quantityCart,
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'idCart': idCart,
+      'imageCart': imageCart,
+      'textCart': textCart,
+      'priceCart': priceCart,
+      'quantityCart': quantityCart,
+    };
+  }
+
+  factory CartItem.fromMap(Map<String, dynamic> map) {
+    return CartItem(
+      idCart: map['idCart'] as int,
+      imageCart: map['imageCart'] as String,
+      textCart: map['textCart'] as String,
+      priceCart: map['priceCart'] as int,
+      quantityCart: map['quantityCart'] as int,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory CartItem.fromJson(String source) =>
+      CartItem.fromMap(json.decode(source) as Map<String, dynamic>);
 }

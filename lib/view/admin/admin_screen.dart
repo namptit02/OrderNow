@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+// import 'package:flutter/src/widgets/framework.dart';
+// import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_application_chuyenman/common/authentication.dart';
 import 'package:flutter_application_chuyenman/network/data_state/data_state.dart';
 import 'package:flutter_application_chuyenman/network/remote/models/food_item.dart';
@@ -96,7 +96,7 @@ class _AdminScreenState extends State<AdminScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: true,
-        appBar: AppBar(title: Text("Admin")),
+        appBar: AppBar(title: const Text("Admin")),
         body: WillPopScope(
           onWillPop: () async {
             return false;
@@ -116,7 +116,7 @@ class _AdminScreenState extends State<AdminScreen> {
             width: double.infinity,
             height: double.infinity,
             child: SingleChildScrollView(
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
@@ -265,6 +265,7 @@ class _AdminScreenState extends State<AdminScreen> {
                                               priceDetailFood:
                                                   categoryList[index]
                                                       .priceCategory,
+                                              userName: "",
                                             )));
                                 // Navigator.pushNamed(context, "/detail_food", );
                               },
@@ -340,11 +341,11 @@ class _AdminScreenState extends State<AdminScreen> {
         ),
         bottomNavigationBar: BlocBuilder<BottomNavBarCubit, BottomNavBarState>(
           builder: (context, state) {
-            return Container(
+            return SizedBox(
               height: 70,
               child: GNav(
                 gap: 20,
-                backgroundColor: Color.fromARGB(255, 148, 56, 142),
+                backgroundColor: const Color.fromARGB(255, 148, 56, 142),
                 color: Colors.white,
                 activeColor: Colors.white,
                 tabBackgroundColor: Colors.blueGrey,

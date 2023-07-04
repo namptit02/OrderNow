@@ -3,7 +3,7 @@ import 'package:flutter_application_chuyenman/network/remote/models/cart_item.da
 import 'package:flutter_application_chuyenman/view/cart/cart_screen.dart';
 import 'package:flutter_application_chuyenman/view/cart/view_cart/cart_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_application_chuyenman/network/remote/models/detail_food.dart';
+// import 'package:flutter_application_chuyenman/network/remote/models/detail_food.dart';
 
 class DetailFood extends StatelessWidget {
   final int idDetailFood;
@@ -11,13 +11,15 @@ class DetailFood extends StatelessWidget {
   final String textDetailFood;
   final String storeDetailFood;
   final int priceDetailFood;
-  DetailFood({
+  final String userName;
+  const DetailFood({
     Key? key,
     required this.idDetailFood,
     required this.imageDetailFood,
     required this.textDetailFood,
     required this.storeDetailFood,
     required this.priceDetailFood,
+    required this.userName,
   }) : super(key: key);
 
   @override
@@ -25,9 +27,9 @@ class DetailFood extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('View Food'),
-        backgroundColor: Color.fromARGB(255, 148, 56, 142),
+        backgroundColor: const Color.fromARGB(255, 148, 56, 142),
       ),
-      body: Container(
+      body: SizedBox(
         width: double.infinity,
         height: double.infinity,
         child: Container(
@@ -157,7 +159,8 @@ class DetailFood extends StatelessWidget {
                                   height: 35,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
-                                    color: Color.fromARGB(255, 148, 56, 142),
+                                    color:
+                                        const Color.fromARGB(255, 148, 56, 142),
                                   ),
                                   child: Center(
                                     child: TextButton(
@@ -176,7 +179,10 @@ class DetailFood extends StatelessWidget {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) => CartScreen(),
+                                            builder: (context) => CartScreen(
+                                              cartItems: const [],
+                                              username: userName,
+                                            ),
                                           ),
                                         );
                                       },
@@ -186,8 +192,8 @@ class DetailFood extends StatelessWidget {
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(20),
-                                          color:
-                                              Color.fromARGB(255, 148, 56, 142),
+                                          color: const Color.fromARGB(
+                                              255, 148, 56, 142),
                                         ),
                                         child: const Center(
                                           child: Text(
