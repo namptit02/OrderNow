@@ -153,7 +153,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Container(
                   margin: const EdgeInsets.only(left: 19, top: 10),
-                  width: 353,
+                  width: MediaQuery.of(context).size.width *
+                      0.8, // Sử dụng MediaQuery để tính toán chiều rộng
                   height: 42,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
@@ -167,8 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       Expanded(
                         child: TextField(
-                          onChanged:
-                              filterCategoryList, // Khi có sự thay đổi trong ô tìm kiếm, gọi hàm lọc danh sách
+                          onChanged: filterCategoryList,
                           decoration: const InputDecoration(
                             hintText: 'What are we eating today?',
                             border: InputBorder.none,
@@ -234,8 +234,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
                 ),
                 Container(
-                  width: 400,
-                  height: 350,
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.width * 0.9,
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   margin: const EdgeInsets.only(top: 0),
                   child: SingleChildScrollView(

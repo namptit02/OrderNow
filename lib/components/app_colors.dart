@@ -6,5 +6,7 @@ class AppColors {
   static const Color textColor = Colors.black;
   static const Color backgroundCategoryColor =
       Color.fromARGB(255, 255, 255, 255);
+  static const Color appbar = Color.fromARGB(255, 148, 56, 142);
+  static const Color backgroundButton = Color.fromARGB(255, 148, 56, 142);
   // Khai báo các giá trị color khác tại đây
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_chuyenman/components/app_colors.dart';
 import 'package:flutter_application_chuyenman/network/remote/models/cart_item.dart';
 
 import 'package:flutter_application_chuyenman/view/cart/view_cart/cart_cubit.dart';
@@ -21,7 +22,7 @@ class CartScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Order'),
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: AppColors.appbar,
       ),
       body: BlocConsumer<CartCubit, List<CartItem>>(
         listener: (context, cartItems) {},
@@ -90,8 +91,12 @@ class CartScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: double.infinity,
+                width: MediaQuery.of(context).size.width * 0.5,
                 child: ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        AppColors.backgroundButton),
+                  ),
                   onPressed: cartItems.isEmpty
                       ? null
                       : () {
@@ -115,7 +120,11 @@ class CartScreen extends StatelessWidget {
                                       Navigator.of(context).pop();
                                     },
                                   ),
-                                  TextButton(
+                                  ElevatedButton(
+                                    style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                AppColors.backgroundButton)),
                                     child: const Text('Confirm'),
                                     onPressed: () {
                                       if (phoneController.text.length < 10 ||
@@ -162,7 +171,8 @@ class CartScreen extends StatelessWidget {
                             },
                           );
                         },
-                  child: const Text('Confirm'),
+                  child: const Text('Confirm',
+                      style: TextStyle(color: Colors.white)),
                 ),
               ),
               Padding(

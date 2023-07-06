@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_chuyenman/components/app_colors.dart';
 import 'package:flutter_application_chuyenman/network/remote/models/cart_item.dart';
 
 import 'package:flutter_application_chuyenman/view/homepage/home_screen.dart';
@@ -57,8 +58,8 @@ class BillScreen extends StatelessWidget {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: const Text('Đặt hàng thành công'),
-          content: const Text('Thông tin đơn hàng đã được gửi thành công.'),
+          title: const Text('Order successfully'),
+          content: const Text('Order information has been sent successfully.'),
           actions: [
             TextButton(
               onPressed: () {
@@ -85,9 +86,9 @@ class BillScreen extends StatelessWidget {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: const Text('Đặt hàng thất bại'),
-          content:
-              const Text('Có lỗi xảy ra khi đặt hàng. Vui lòng thử lại sau.'),
+          title: const Text('Order failed'),
+          content: const Text(
+              'An error occurred while placing an order. Please try again later.'),
           actions: [
             TextButton(
               onPressed: () {
@@ -106,7 +107,7 @@ class BillScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Bill'),
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: AppColors.appbar,
       ),
       body: Column(
         children: [
@@ -228,6 +229,9 @@ class BillScreen extends StatelessWidget {
             ),
           ),
           ElevatedButton(
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(
+                    AppColors.backgroundButton)),
             onPressed: () => _placeOrder(
                 context), // Gọi hàm _placeOrder khi nhấn nút "Đặt hàng"
             child: const Text('Đặt hàng'),

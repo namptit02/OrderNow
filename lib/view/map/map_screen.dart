@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_chuyenman/components/app_colors.dart';
 import 'package:flutter_application_chuyenman/network/remote/models/cart_item.dart';
 import 'package:flutter_application_chuyenman/view/bill/bill_screen.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -107,6 +108,7 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AppColors.appbar,
         title: const Text("Current Location"),
       ),
       body: Column(
@@ -137,6 +139,9 @@ class _MapScreenState extends State<MapScreen> {
             ),
           ),
           ElevatedButton(
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(
+                    AppColors.backgroundButton)),
             onPressed: () {
               Navigator.push(
                 context,

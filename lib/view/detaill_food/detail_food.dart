@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_chuyenman/components/app_colors.dart';
 import 'package:flutter_application_chuyenman/network/remote/models/cart_item.dart';
 import 'package:flutter_application_chuyenman/view/cart/cart_screen.dart';
 import 'package:flutter_application_chuyenman/view/cart/view_cart/cart_cubit.dart';
@@ -27,7 +28,7 @@ class DetailFood extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('View Food'),
-        backgroundColor: const Color.fromARGB(255, 148, 56, 142),
+        backgroundColor: AppColors.appbar,
       ),
       body: SizedBox(
         width: double.infinity,
@@ -64,7 +65,6 @@ class DetailFood extends StatelessWidget {
                     color: Colors.white,
                     boxShadow: [
                       BoxShadow(
-                        color: Color.fromRGBO(0, 0, 0, 0.1),
                         offset: Offset(0, 4),
                         blurRadius: 15,
                         spreadRadius: 6,
@@ -137,81 +137,59 @@ class DetailFood extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20, top: 20),
-                          child: Row(
-                            children: [
-                              Text(
-                                "\$${priceDetailFood.toString()}",
-                                style: const TextStyle(
-                                  color: Color(0xFF000000),
-                                  fontSize: 30,
-                                  fontFamily: 'Roboto',
-                                  fontWeight: FontWeight.w600,
-                                  height: 1.0,
-                                  letterSpacing: 3.0,
-                                ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Text(
+                              "\$${priceDetailFood.toString()}",
+                              style: const TextStyle(
+                                color: Color(0xFF000000),
+                                fontSize: 30,
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w600,
+                                height: 1.0,
+                                letterSpacing: 3.0,
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 120),
-                                child: Container(
-                                  width: 174,
-                                  height: 35,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color:
-                                        const Color.fromARGB(255, 148, 56, 142),
-                                  ),
-                                  child: Center(
-                                    child: TextButton(
-                                      onPressed: () {
-                                        final cartItem = CartItem(
-                                          idCart: idDetailFood,
-                                          imageCart: imageDetailFood,
-                                          textCart: textDetailFood,
-                                          priceCart: priceDetailFood,
-                                          quantityCart: 1,
-                                        );
+                            ),
+                            Container(width: 60),
+                            ElevatedButton(
+                              style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          AppColors.backgroundButton)),
+                              onPressed: () {
+                                final cartItem = CartItem(
+                                  idCart: idDetailFood,
+                                  imageCart: imageDetailFood,
+                                  textCart: textDetailFood,
+                                  priceCart: priceDetailFood,
+                                  quantityCart: 1,
+                                );
 
-                                        context
-                                            .read<CartCubit>()
-                                            .addToCart(cartItem);
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => CartScreen(
-                                              cartItems: const [],
-                                              username: userName,
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      child: Container(
-                                        width: 174,
-                                        height: 35,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          color: const Color.fromARGB(
-                                              255, 148, 56, 142),
-                                        ),
-                                        child: const Center(
-                                          child: Text(
-                                            'Add to Cart',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
+                                context.read<CartCubit>().addToCart(cartItem);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => CartScreen(
+                                      cartItems: const [],
+                                      username: userName,
                                     ),
                                   ),
+                                );
+                              },
+                              child: const Text(
+                                'Add to Cart',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
                                 ),
-                              )
-                            ],
-                          ),
+                              ),
+                            )
+                          ],
                         )
                       ],
                     ),
