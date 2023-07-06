@@ -43,7 +43,7 @@ class WidgetTree extends StatelessWidget {
       builder: (context, snapshotData) {
         if (snapshotData.hasData) {
           final username = snapshotData.data?.email ?? "";
-          if (username == "user22@gmail.com") {
+          if (username == "admin@gmail.com") {
             return const AdminScreen();
           } else {
             return HomeScreen(

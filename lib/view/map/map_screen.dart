@@ -147,6 +147,7 @@ class _MapScreenState extends State<MapScreen> {
                     currentAddress: _currentAddress,
                     totalPrice: widget.totalPrice,
                     phoneNumber: widget.phoneNumber, userName: widget.userName,
+                    removeCartItems: () {},
                   ),
                 ),
               );

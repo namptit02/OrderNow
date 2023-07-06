@@ -7,12 +7,15 @@ import 'package:flutter_application_chuyenman/view/map/map_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CartScreen extends StatelessWidget {
-  // const CartScreen({super.key});
   final List<CartItem> cartItems;
   final TextEditingController phoneController = TextEditingController();
   final String username;
   CartScreen({Key? key, required this.cartItems, required this.username})
       : super(key: key);
+  // void _removeAllItems(BuildContext context) {
+  //   context.read<CartCubit>().removeAllItems();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,19 +91,6 @@ class CartScreen extends StatelessWidget {
               ),
               SizedBox(
                 width: double.infinity,
-                // child: ElevatedButton(
-                //   onPressed: cartItems.isEmpty
-                //       ? null // Disable button if cart is empty
-                //       : () {
-                //           Navigator.push(
-                //             context,
-                //             MaterialPageRoute(
-                //               builder: (context) => const MapScreen(),
-                //             ),
-                //           );
-                //         },
-                //   child: const Text('Confirm'),
-                // ),
                 child: ElevatedButton(
                   onPressed: cartItems.isEmpty
                       ? null
@@ -113,6 +103,7 @@ class CartScreen extends StatelessWidget {
                                 content: TextField(
                                   controller: phoneController,
                                   keyboardType: TextInputType.phone,
+                                  maxLength: 11,
                                   decoration: const InputDecoration(
                                     labelText: 'Phone Number',
                                   ),
@@ -127,7 +118,32 @@ class CartScreen extends StatelessWidget {
                                   TextButton(
                                     child: const Text('Confirm'),
                                     onPressed: () {
+                                      if (phoneController.text.length < 10 ||
+                                          phoneController.text.length > 11) {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: const Text(
+                                                  'Invalid Phone Number'),
+                                              content: const Text(
+                                                  'Please enter a valid phone number.'),
+                                              actions: <Widget>[
+                                                TextButton(
+                                                  child: const Text('OK'),
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                        return;
+                                      }
+
                                       Navigator.of(context).pop();
+                                      // _removeAllItems(context);
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(

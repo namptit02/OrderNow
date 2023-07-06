@@ -98,6 +98,10 @@ class CartCubit extends Cubit<List<CartItem>> {
     updateTotalPrice();
   }
 
+  void removeAllItems() {
+    emit([]);
+  }
+
   void updateTotalPrice() {
     totalPrice = 0;
     for (final cartItem in state) {

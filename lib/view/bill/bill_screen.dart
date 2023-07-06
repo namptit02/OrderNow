@@ -2,15 +2,24 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_chuyenman/network/remote/models/cart_item.dart';
+
 import 'package:flutter_application_chuyenman/view/homepage/home_screen.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 class BillScreen extends StatelessWidget {
+  String _getCurrentDateTime() {
+    final now = DateTime.now();
+    final formattedDate = DateFormat('HH:mm:ss dd/MM/yyyy').format(now);
+    return formattedDate;
+  }
+
   final List<CartItem> cartItems;
   final String currentAddress;
   final int totalPrice;
   final String phoneNumber;
   final String userName;
+  final VoidCallback removeCartItems;
   const BillScreen({
     Key? key,
     required this.cartItems,
@@ -18,6 +27,7 @@ class BillScreen extends StatelessWidget {
     required this.totalPrice,
     required this.phoneNumber,
     required this.userName,
+    required this.removeCartItems,
   }) : super(key: key);
 
   Future<void> _placeOrder(BuildContext context) async {
@@ -68,6 +78,7 @@ class BillScreen extends StatelessWidget {
           ],
         ),
       );
+      removeCartItems();
     } else {
       // Đặt hàng thất bại
       // ignore: use_build_context_synchronously
@@ -121,27 +132,87 @@ class BillScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Shipping Address: $currentAddress',
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Row(
+                  children: [
+                    const Text(
+                      'Shipping Address:',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        currentAddress,
+                        style: const TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                Text(
-                  "Phone Number: $phoneNumber",
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Row(
+                  children: [
+                    const Text(
+                      'Phone Number:',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        phoneNumber,
+                        style: const TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                Text(
-                  "Username: $userName",
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Row(
+                  children: [
+                    const Text(
+                      'Username:',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        userName,
+                        style: const TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    const Text(
+                      'Current Time:',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        _getCurrentDateTime(),
+                        style: const TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
