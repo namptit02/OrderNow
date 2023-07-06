@@ -11,8 +11,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key, required this.args}) : super(key: key);
-  final ScreenArgument args;
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -114,11 +113,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Container(
                     child: Row(
                       children: [
-                        Text(
-                          'Welcome, ${widget.args.usernameValue.split('@').first}',
-                          style: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w600),
-                        ),
+                        // Text(
+                        //   'Welcome, ${widget.args.usernameValue.split('@').first}',
+                        //   style: const TextStyle(
+                        //       fontSize: 20, fontWeight: FontWeight.w600),
+                        // ),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xff8359E3),
@@ -262,7 +261,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         filteredCategoryList[index].store,
                                     priceDetailFood: filteredCategoryList[index]
                                         .priceCategory,
-                                    userName: widget.args.usernameValue,
+                                    // userName: widget.args.usernameValue,
                                   ),
                                 ),
                               );
@@ -332,10 +331,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-}
-
-class ScreenArgument {
-  final String usernameValue;
-
-  ScreenArgument({required this.usernameValue});
 }

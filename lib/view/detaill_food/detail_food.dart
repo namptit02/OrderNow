@@ -12,7 +12,7 @@ class DetailFood extends StatelessWidget {
   final String textDetailFood;
   final String storeDetailFood;
   final int priceDetailFood;
-  final String userName;
+  // final String userName;
   const DetailFood({
     Key? key,
     required this.idDetailFood,
@@ -20,7 +20,7 @@ class DetailFood extends StatelessWidget {
     required this.textDetailFood,
     required this.storeDetailFood,
     required this.priceDetailFood,
-    required this.userName,
+    // required this.userName,
   }) : super(key: key);
 
   @override
@@ -175,7 +175,7 @@ class DetailFood extends StatelessWidget {
                                   MaterialPageRoute(
                                     builder: (context) => CartScreen(
                                       cartItems: const [],
-                                      username: userName,
+                                      // username: userName,
                                     ),
                                   ),
                                 );

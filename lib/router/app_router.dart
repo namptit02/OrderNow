@@ -29,9 +29,7 @@ class AppRouter {
         );
       case AppRouteName.home_screen:
         return MaterialPageRoute(
-          builder: (context) => HomeScreen(
-            args: settings.arguments as ScreenArgument,
-          ),
+          builder: (context) => HomeScreen(),
           // args: settings.arguments as ScreenArgument,
           settings: settings,
         );

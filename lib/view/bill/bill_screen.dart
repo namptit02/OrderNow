@@ -19,16 +19,16 @@ class BillScreen extends StatelessWidget {
   final String currentAddress;
   final int totalPrice;
   final String phoneNumber;
-  final String userName;
-  final VoidCallback removeCartItems;
+  // final String userName;
+  // final VoidCallback removeCartItems;
   const BillScreen({
     Key? key,
     required this.cartItems,
     required this.currentAddress,
     required this.totalPrice,
     required this.phoneNumber,
-    required this.userName,
-    required this.removeCartItems,
+    // required this.userName,
+    // required this.removeCartItems,
   }) : super(key: key);
 
   Future<void> _placeOrder(BuildContext context) async {
@@ -42,7 +42,7 @@ class BillScreen extends StatelessWidget {
       'address': currentAddress,
       'totalPrice': totalPrice,
       'phoneNumber': phoneNumber,
-      'userName': userName
+      // 'userName': userName
     };
 
     // Gửi POST request để lưu thông tin hóa đơn lên Firebase
@@ -68,9 +68,7 @@ class BillScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HomeScreen(
-                      args: ScreenArgument(usernameValue: userName),
-                    ),
+                    builder: (context) => HomeScreen(),
                   ),
                 );
               },
@@ -79,7 +77,7 @@ class BillScreen extends StatelessWidget {
           ],
         ),
       );
-      removeCartItems();
+      // removeCartItems();
     } else {
       // Đặt hàng thất bại
       // ignore: use_build_context_synchronously
@@ -185,14 +183,14 @@ class BillScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        userName,
-                        style: const TextStyle(
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
+                    // Expanded(
+                    //   child: Text(
+                    //     userName,
+                    //     style: const TextStyle(
+                    //       fontSize: 18,
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
                 Row(

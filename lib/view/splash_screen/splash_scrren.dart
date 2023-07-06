@@ -49,9 +49,9 @@ class _SplashScreenState extends State<SplashScreen> {
         Navigator.pushNamed(
           context,
           "/home_screen",
-          arguments: ScreenArgument(
-            usernameValue: loginData,
-          ),
+          // arguments: ScreenArgument(
+          //   usernameValue: loginData,
+          // ),
         );
       });
     }

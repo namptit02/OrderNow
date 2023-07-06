@@ -11,13 +11,13 @@ class MapScreen extends StatefulWidget {
   final List<CartItem> cartItems;
   final int totalPrice;
   final String phoneNumber;
-  final String userName;
+  // final String userName;
   const MapScreen({
     Key? key,
     required this.cartItems,
     required this.totalPrice,
     required this.phoneNumber,
-    required this.userName,
+    // required this.userName,
   }) : super(key: key);
   @override
   // ignore: library_private_types_in_public_api
@@ -151,8 +151,8 @@ class _MapScreenState extends State<MapScreen> {
                         widget.cartItems, // Truyền giá trị cartItems từ widget
                     currentAddress: _currentAddress,
                     totalPrice: widget.totalPrice,
-                    phoneNumber: widget.phoneNumber, userName: widget.userName,
-                    removeCartItems: () {},
+                    phoneNumber: widget.phoneNumber,
+                    // userName: widget.userName,
                   ),
                 ),
               );

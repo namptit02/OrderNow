@@ -10,9 +10,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class CartScreen extends StatelessWidget {
   final List<CartItem> cartItems;
   final TextEditingController phoneController = TextEditingController();
-  final String username;
-  CartScreen({Key? key, required this.cartItems, required this.username})
-      : super(key: key);
+  // final String username;
+  CartScreen({Key? key, required this.cartItems}) : super(key: key);
   // void _removeAllItems(BuildContext context) {
   //   context.read<CartCubit>().removeAllItems();
   // }
@@ -160,7 +159,7 @@ class CartScreen extends StatelessWidget {
                                             cartItems: cartItems,
                                             totalPrice: totalPrice,
                                             phoneNumber: phoneController.text,
-                                            userName: username,
+                                            // userName: username,
                                           ),
                                         ),
                                       );
