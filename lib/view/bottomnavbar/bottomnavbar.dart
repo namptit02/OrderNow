@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_chuyenman/view/bill/bill_screen.dart';
-import 'package:flutter_application_chuyenman/view/cart/cart_screen.dart';
+// import 'package:flutter_application_chuyenman/view/cart/cart_screen.dart';
 import 'package:flutter_application_chuyenman/view/homepage/home_screen.dart';
+import 'package:flutter_application_chuyenman/view/settings/settings_screen.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class BottomNavBar extends StatefulWidget {
+  const BottomNavBar({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
+  State<BottomNavBar> createState() => _BottomNavBarState();
 }
 
-class _HomeState extends State<Home> {
-  // List<DoctorData> doctorList = [];
-
+class _BottomNavBarState extends State<BottomNavBar> {
   int selectedIndex = 0;
 
   void onTabSelected(int index) {
@@ -22,11 +21,8 @@ class _HomeState extends State<Home> {
   }
 
   final pages = <Widget>[
-    HomeScreen(),
-    CartScreen(
-      cartItems: [],
-      // username: '',
-    ),
+    const HomeScreen(),
+
     const BillScreen(
       cartItems: [],
       currentAddress: '',
@@ -34,6 +30,7 @@ class _HomeState extends State<Home> {
       totalPrice: 0,
       // userName: '',
     ),
+    const SettingScreen()
     // const Account()
   ];
 
@@ -43,24 +40,28 @@ class _HomeState extends State<Home> {
       body: Column(
         children: [
           Expanded(
-            child: pages[selectedIndex],
+            child: pages.elementAt(selectedIndex),
           ),
           BottomNavigationBar(
               currentIndex: selectedIndex,
               elevation: 1,
               backgroundColor: Colors.white,
-              items: [
+              items: const [
                 BottomNavigationBarItem(
                   icon: Icon(Icons.home),
                   label: "Trang chủ",
                 ),
+                // BottomNavigationBarItem(
+                //   icon: Icon(Icons.shopping_cart),
+                //   label: "Cart",
+                // ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.shopping_cart),
-                  label: "Cart",
+                  icon: Icon(Icons.receipt),
+                  label: "Bill",
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.money),
-                  label: "Bill",
+                  icon: Icon(Icons.settings),
+                  label: "Settings",
                 ),
               ],
               onTap: onTabSelected,

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_chuyenman/components/app_colors.dart';
 import 'package:flutter_application_chuyenman/network/remote/models/cart_item.dart';
+import 'package:flutter_application_chuyenman/view/bill/bill_screen.dart';
 
 import 'package:flutter_application_chuyenman/view/cart/view_cart/cart_cubit.dart';
 
-import 'package:flutter_application_chuyenman/view/map/map_screen.dart';
+// import 'package:flutter_application_chuyenman/view/map/map_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CartScreen extends StatelessWidget {
@@ -51,6 +52,7 @@ class CartScreen extends StatelessWidget {
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Text(cartItem.storeCart),
                             Text('Price: \$${cartItem.priceCart}'),
                             Row(
                               children: [
@@ -99,76 +101,46 @@ class CartScreen extends StatelessWidget {
                   onPressed: cartItems.isEmpty
                       ? null
                       : () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: const Text('Enter Phone Number'),
-                                content: TextField(
-                                  controller: phoneController,
-                                  keyboardType: TextInputType.phone,
-                                  maxLength: 11,
-                                  decoration: const InputDecoration(
-                                    labelText: 'Phone Number',
-                                  ),
-                                ),
-                                actions: <Widget>[
-                                  TextButton(
-                                    child: const Text('Cancel'),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                  ElevatedButton(
-                                    style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                AppColors.backgroundButton)),
-                                    child: const Text('Confirm'),
-                                    onPressed: () {
-                                      if (phoneController.text.length < 10 ||
-                                          phoneController.text.length > 11) {
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return AlertDialog(
-                                              title: const Text(
-                                                  'Invalid Phone Number'),
-                                              content: const Text(
-                                                  'Please enter a valid phone number.'),
-                                              actions: <Widget>[
-                                                TextButton(
-                                                  child: const Text('OK'),
-                                                  onPressed: () {
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        );
-                                        return;
-                                      }
+                          List<String> storeNames = [];
+                          for (final cartItem in cartItems) {
+                            storeNames.add(cartItem.storeCart);
+                          }
 
-                                      Navigator.of(context).pop();
-                                      // _removeAllItems(context);
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => MapScreen(
-                                            cartItems: cartItems,
-                                            totalPrice: totalPrice,
-                                            phoneNumber: phoneController.text,
-                                            // userName: username,
-                                          ),
-                                        ),
-                                      );
-                                    },
+                          bool sameStore =
+                              storeNames.every((name) => name == storeNames[0]);
+
+                          if (sameStore) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => BillScreen(
+                                    cartItems: cartItems,
+                                    currentAddress:
+                                        '', // Truyền địa chỉ vào đây
+                                    totalPrice: totalPrice,
+                                    phoneNumber: phoneController.text,
                                   ),
-                                ],
-                              );
-                            },
-                          );
+                                ));
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text('Invalid Order'),
+                                  content: const Text(
+                                      'Please select items from the same store.'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: const Text('OK'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }
                         },
                   child: const Text('Confirm',
                       style: TextStyle(color: Colors.white)),

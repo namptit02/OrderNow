@@ -34,14 +34,15 @@ class CartItem {
   final String textCart;
   final int priceCart;
   final int quantityCart;
+  final String storeCart;
 
-  CartItem({
-    required this.idCart,
-    required this.imageCart,
-    required this.textCart,
-    required this.priceCart,
-    required this.quantityCart,
-  });
+  CartItem(
+      {required this.idCart,
+      required this.imageCart,
+      required this.textCart,
+      required this.priceCart,
+      required this.quantityCart,
+      required this.storeCart});
 
   CartItem copyWith({
     int? idCart,
@@ -49,14 +50,15 @@ class CartItem {
     String? textCart,
     int? priceCart,
     int? quantityCart,
+    String? storeCart,
   }) {
     return CartItem(
-      idCart: idCart ?? this.idCart,
-      imageCart: imageCart ?? this.imageCart,
-      textCart: textCart ?? this.textCart,
-      priceCart: priceCart ?? this.priceCart,
-      quantityCart: quantityCart ?? this.quantityCart,
-    );
+        idCart: idCart ?? this.idCart,
+        imageCart: imageCart ?? this.imageCart,
+        textCart: textCart ?? this.textCart,
+        priceCart: priceCart ?? this.priceCart,
+        quantityCart: quantityCart ?? this.quantityCart,
+        storeCart: storeCart ?? this.storeCart);
   }
 
   Map<String, dynamic> toMap() {
@@ -66,17 +68,18 @@ class CartItem {
       'textCart': textCart,
       'priceCart': priceCart,
       'quantityCart': quantityCart,
+      'storeCart': storeCart
     };
   }
 
   factory CartItem.fromMap(Map<String, dynamic> map) {
     return CartItem(
-      idCart: map['idCart'] as int,
-      imageCart: map['imageCart'] as String,
-      textCart: map['textCart'] as String,
-      priceCart: map['priceCart'] as int,
-      quantityCart: map['quantityCart'] as int,
-    );
+        idCart: map['idCart'] as int,
+        imageCart: map['imageCart'] as String,
+        textCart: map['textCart'] as String,
+        priceCart: map['priceCart'] as int,
+        quantityCart: map['quantityCart'] as int,
+        storeCart: map['storeCart'] as String);
   }
 
   String toJson() => json.encode(toMap());

@@ -22,9 +22,9 @@ class _LoginScreenState extends State<LoginScreen> {
   late final TextEditingController passwordController;
   String? usernameValue;
   String? passwordValue;
-  String? usernameError;
-  String? passwordError;
-  String? passOrUserError;
+  // String? usernameError;
+  // String? passwordError;
+  // String? passOrUserError;
   // ignore: prefer_typing_uninitialized_variables
   var _isObscured;
   SharedPreferences? prefs;

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_chuyenman/components/app_colors.dart';
 import 'package:flutter_application_chuyenman/network/remote/models/cart_item.dart';
 
-import 'package:flutter_application_chuyenman/view/homepage/home_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
@@ -57,24 +56,24 @@ class BillScreen extends StatelessWidget {
       // ignore: use_build_context_synchronously
       showDialog(
         context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('Order successfully'),
-          content: const Text('Order information has been sent successfully.'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
+        builder: (context) => const AlertDialog(
+          title: Text('Order successfully'),
+          content: Text('Order information has been sent successfully.'),
+          // actions: [
+          //   TextButton(
+          //     onPressed: () {
+          //       Navigator.pop(context);
 
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => HomeScreen(),
-                  ),
-                );
-              },
-              child: const Text('OK'),
-            ),
-          ],
+          //       Navigator.push(
+          //         context,
+          //         MaterialPageRoute(
+          //           builder: (context) => HomeScreen(),
+          //         ),
+          //       );
+          //     },
+          //     child: const Text('OK'),
+          //   ),
+          // ],
         ),
       );
       // removeCartItems();
@@ -173,26 +172,26 @@ class BillScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                Row(
-                  children: [
-                    const Text(
-                      'Username:',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    // Expanded(
-                    //   child: Text(
-                    //     userName,
-                    //     style: const TextStyle(
-                    //       fontSize: 18,
-                    //     ),
-                    //   ),
-                    // ),
-                  ],
-                ),
+                // Row(
+                //   children: [
+                //     const Text(
+                //       'Username:',
+                //       style: TextStyle(
+                //         fontSize: 18,
+                //         fontWeight: FontWeight.bold,
+                //       ),
+                //     ),
+                //     const SizedBox(width: 8),
+                //     // Expanded(
+                //     //   child: Text(
+                //     //     userName,
+                //     //     style: const TextStyle(
+                //     //       fontSize: 18,
+                //     //     ),
+                //     //   ),
+                //     // ),
+                //   ],
+                // ),
                 Row(
                   children: [
                     const Text(

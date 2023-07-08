@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_chuyenman/common/authentication.dart';
+// import 'package:flutter_application_chuyenman/common/authentication.dart';
 import 'package:flutter_application_chuyenman/components/app_colors.dart';
 import 'package:flutter_application_chuyenman/network/data_state/data_state.dart';
 import 'package:flutter_application_chuyenman/network/remote/models/food_item.dart';
 import 'package:flutter_application_chuyenman/network/repositories/home_repository_impl.dart';
+// import 'package:flutter_application_chuyenman/view/cart/cart_screen.dart';
 
-import 'package:flutter_application_chuyenman/view/detaill_food/detail_food.dart';
+import 'package:flutter_application_chuyenman/view/detaill_food/view_food.dart';
 
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:google_sign_in/google_sign_in.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -112,40 +113,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   // ignore: avoid_unnecessary_containers
                   child: Container(
                     child: Row(
-                      children: [
+                      children: const [
                         // Text(
                         //   'Welcome, ${widget.args.usernameValue.split('@').first}',
                         //   style: const TextStyle(
                         //       fontSize: 20, fontWeight: FontWeight.w600),
                         // ),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xff8359E3),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(35),
-                            ),
-                          ),
-                          onPressed: () async {
-                            try {
-                              await Auth().logOut();
-                              // Xóa thông tin đăng nhập đã lưu trong SharedPreferences
-                              final prefs =
-                                  await SharedPreferences.getInstance();
-                              prefs.remove("loginData");
-
-                              // Ngắt kết nối tài khoản Google
-                              final googleSignIn = GoogleSignIn();
-                              // await googleSignIn.disconnect();
-                              await googleSignIn.signOut();
-                              // Xóa token xác thực của tài khoản Google (nếu có)
-                            } catch (error) {
-                              print(error.toString());
-                            }
-                          },
-                          child: const Text(
-                            "Log out",
-                          ),
-                        ),
                       ],
                     ),
                   ),
@@ -250,7 +223,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => DetailFood(
+                                  builder: (context) => ViewFood(
                                     idDetailFood:
                                         filteredCategoryList[index].idCategory,
                                     imageDetailFood: filteredCategoryList[index]
@@ -328,6 +301,16 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.white,
+        child: const Icon(
+          Icons.shopping_cart,
+          color: Colors.red,
+        ),
+        onPressed: () {
+          Navigator.pushNamed(context, "/cart_screen");
+        },
       ),
     );
   }

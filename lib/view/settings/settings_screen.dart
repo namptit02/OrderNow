@@ -1,45 +1,51 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter/src/widgets/framework.dart';
-// import 'package:flutter/src/widgets/placeholder.dart';
-// import 'package:flutter_application_chuyenman/common/authentication.dart';
+import 'package:flutter/material.dart';
 
-// class SettingScreen extends StatefulWidget {
-//   const SettingScreen({super.key});
+import 'package:flutter_application_chuyenman/common/authentication.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-//   @override
-//   State<SettingScreen> createState() => _SettingScreenState();
-// }
+class SettingScreen extends StatefulWidget {
+  const SettingScreen({super.key});
 
-// class _SettingScreenState extends State<SettingScreen> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Container(
-//         child: Padding(
-//           padding: const EdgeInsets.only(top: 200),
-//           child: ElevatedButton(
-//             style: ElevatedButton.styleFrom(
-//               // ignore: deprecated_member_use
-//               primary: const Color(0xff8359E3),
-//               shape: RoundedRectangleBorder(
-//                 borderRadius: BorderRadius.circular(35),
-//               ),
-//             ),
-//             onPressed: () async {
-//               try {
-//                 await Auth().logOut();
-//                 Navigator.pushNamed(context, "/login");
-//               } catch (error) {
-//                 // ignore: avoid_print
-//                 print(error.toString());
-//               }
-//             },
-//             child: const Text(
-//               "Log out",
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
+  @override
+  State<SettingScreen> createState() => _SettingScreenState();
+}
+
+class _SettingScreenState extends State<SettingScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.only(top: 200),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xff8359E3),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(35),
+            ),
+          ),
+          onPressed: () async {
+            try {
+              await Auth().logOut();
+              // Xóa thông tin đăng nhập đã lưu trong SharedPreferences
+              final prefs = await SharedPreferences.getInstance();
+              prefs.remove("loginData");
+
+              // Ngắt kết nối tài khoản Google
+              final googleSignIn = GoogleSignIn();
+              // await googleSignIn.disconnect();
+              await googleSignIn.signOut();
+              // Xóa token xác thực của tài khoản Google (nếu có)
+            } catch (error) {
+              // ignore: avoid_print
+              print(error.toString());
+            }
+          },
+          child: const Text(
+            "Log out",
+          ),
+        ),
+      ),
+    );
+  }
+}
