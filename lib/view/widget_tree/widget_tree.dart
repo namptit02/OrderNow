@@ -3,7 +3,8 @@ import 'package:flutter_application_chuyenman/common/authentication.dart';
 import 'package:flutter_application_chuyenman/view/admin/admin_screen.dart';
 // import 'package:flutter_application_chuyenman/view/bottomnavbar/bottomnavbar.dart';
 import 'package:flutter_application_chuyenman/view/homepage/home_screen.dart';
-import 'package:flutter_application_chuyenman/view/signup_profile_information/signup_profile.dart';
+import 'package:flutter_application_chuyenman/view/map/map_screen.dart';
+
 // import 'package:flutter_application_chuyenman/view/adminscreen/admin_screen.dart';
 
 import '../login/login.dart';
@@ -20,10 +21,17 @@ class WidgetTree extends StatelessWidget {
           if (username == "admin@gmail.com") {
             return const AdminScreen();
           } else if (snapshotData.hasData) {
-            return const SignUpProfileScreen();
+            return MapScreen(
+              phoneNumber: '',
+              userName: '',
+            );
             // return const BottomNavBar();
           } else {
-            return const HomeScreen();
+            return const HomeScreen(
+              phoneNumber: '',
+              userName: '',
+              current_address: '',
+            );
           }
         } else {
           return const LoginScreen();

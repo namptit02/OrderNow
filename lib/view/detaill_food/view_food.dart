@@ -216,7 +216,10 @@ class ViewFood extends StatelessWidget {
   final String textDetailFood;
   final String storeDetailFood;
   final int priceDetailFood;
-
+  final String phoneNumber;
+  final String userName;
+  // ignore: non_constant_identifier_names
+  final String current_address;
   const ViewFood({
     Key? key,
     required this.idDetailFood,
@@ -224,6 +227,10 @@ class ViewFood extends StatelessWidget {
     required this.textDetailFood,
     required this.storeDetailFood,
     required this.priceDetailFood,
+    required this.phoneNumber,
+    required this.userName,
+    // ignore: non_constant_identifier_names
+    required this.current_address,
   }) : super(key: key);
 
   @override

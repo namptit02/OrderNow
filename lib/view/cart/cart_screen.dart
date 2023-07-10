@@ -10,15 +10,27 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CartScreen extends StatelessWidget {
   final List<CartItem> cartItems;
-  final TextEditingController phoneController = TextEditingController();
-  // final String username;
-  CartScreen({Key? key, required this.cartItems}) : super(key: key);
+  final String phoneNumber;
+  final String userName;
+  // ignore: non_constant_identifier_names
+  final String current_address;
+  const CartScreen(
+      {Key? key,
+      required this.cartItems,
+      required this.phoneNumber,
+      required this.userName,
+      // ignore: non_constant_identifier_names
+      required this.current_address})
+      : super(key: key);
   // void _removeAllItems(BuildContext context) {
   //   context.read<CartCubit>().removeAllItems();
   // }
 
   @override
   Widget build(BuildContext context) {
+    print("phoneNumber o CartScreen:${phoneNumber}");
+    print("username o CartScreen:${userName}");
+    print("currentaddress o CartScreen:${current_address}");
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Order'),
@@ -110,15 +122,16 @@ class CartScreen extends StatelessWidget {
                               storeNames.every((name) => name == storeNames[0]);
 
                           if (sameStore) {
-                            Navigator.push(
+                            Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => BillScreen(
                                     cartItems: cartItems,
                                     currentAddress:
-                                        '', // Truyền địa chỉ vào đây
+                                        current_address, // Truyền địa chỉ vào đây
                                     totalPrice: totalPrice,
-                                    phoneNumber: phoneController.text,
+                                    phoneNumber: phoneNumber,
+                                    userName: userName, time: '',
                                   ),
                                 ));
                           } else {

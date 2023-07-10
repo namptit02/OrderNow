@@ -8,5 +8,6 @@ class AppColors {
       Color.fromARGB(255, 255, 255, 255);
   static const Color appbar = Color.fromARGB(255, 148, 56, 142);
   static const Color backgroundButton = Color.fromARGB(255, 148, 56, 142);
+  static const Color iconBottom = Colors.white;
   // Khai báo các giá trị color khác tại đây
 }

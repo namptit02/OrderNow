@@ -8,26 +8,26 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
 class BillScreen extends StatelessWidget {
-  String _getCurrentDateTime() {
+  String _getCurrentDateTime(String time) {
     final now = DateTime.now();
     final formattedDate = DateFormat('HH:mm:ss dd/MM/yyyy').format(now);
     return formattedDate;
   }
 
   final List<CartItem> cartItems;
+  final String userName;
   final String currentAddress;
   final int totalPrice;
   final String phoneNumber;
-  // final String userName;
-  // final VoidCallback removeCartItems;
+  final String time;
   const BillScreen({
     Key? key,
     required this.cartItems,
+    required this.userName,
     required this.currentAddress,
     required this.totalPrice,
     required this.phoneNumber,
-    // required this.userName,
-    // required this.removeCartItems,
+    required this.time,
   }) : super(key: key);
 
   Future<void> _placeOrder(BuildContext context) async {
@@ -38,10 +38,11 @@ class BillScreen extends StatelessWidget {
     // Tạo payload dữ liệu để gửi lên Firebase
     final Map<String, dynamic> payload = {
       'cartItems': cartItemsJson,
+      'userName': userName,
       'address': currentAddress,
       'totalPrice': totalPrice,
       'phoneNumber': phoneNumber,
-      // 'userName': userName
+      'currentTime': _getCurrentDateTime(time)
     };
 
     // Gửi POST request để lưu thông tin hóa đơn lên Firebase
@@ -59,24 +60,8 @@ class BillScreen extends StatelessWidget {
         builder: (context) => const AlertDialog(
           title: Text('Order successfully'),
           content: Text('Order information has been sent successfully.'),
-          // actions: [
-          //   TextButton(
-          //     onPressed: () {
-          //       Navigator.pop(context);
-
-          //       Navigator.push(
-          //         context,
-          //         MaterialPageRoute(
-          //           builder: (context) => HomeScreen(),
-          //         ),
-          //       );
-          //     },
-          //     child: const Text('OK'),
-          //   ),
-          // ],
         ),
       );
-      // removeCartItems();
     } else {
       // Đặt hàng thất bại
       // ignore: use_build_context_synchronously
@@ -101,6 +86,9 @@ class BillScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("userName o bill screen${userName}");
+    print("phone number o bill Screen: ${phoneNumber}");
+    print("current address o billscreen${currentAddress}");
     return Scaffold(
       appBar: AppBar(
         title: const Text('Bill'),
@@ -135,7 +123,27 @@ class BillScreen extends StatelessWidget {
                 Row(
                   children: [
                     const Text(
-                      'Shipping Address:',
+                      'Username:',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        userName,
+                        style: const TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    const Text(
+                      "Shipping Address:",
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -172,26 +180,6 @@ class BillScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                // Row(
-                //   children: [
-                //     const Text(
-                //       'Username:',
-                //       style: TextStyle(
-                //         fontSize: 18,
-                //         fontWeight: FontWeight.bold,
-                //       ),
-                //     ),
-                //     const SizedBox(width: 8),
-                //     // Expanded(
-                //     //   child: Text(
-                //     //     userName,
-                //     //     style: const TextStyle(
-                //     //       fontSize: 18,
-                //     //     ),
-                //     //   ),
-                //     // ),
-                //   ],
-                // ),
                 Row(
                   children: [
                     const Text(
@@ -204,7 +192,7 @@ class BillScreen extends StatelessWidget {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        _getCurrentDateTime(),
+                        _getCurrentDateTime(time),
                         style: const TextStyle(
                           fontSize: 18,
                         ),
@@ -231,7 +219,7 @@ class BillScreen extends StatelessWidget {
                     AppColors.backgroundButton)),
             onPressed: () => _placeOrder(
                 context), // Gọi hàm _placeOrder khi nhấn nút "Đặt hàng"
-            child: const Text('Đặt hàng'),
+            child: const Text('Order'),
           ),
         ],
       ),

@@ -259,6 +259,9 @@ class _AdminScreenState extends State<AdminScreen> {
                                                 categoryList[index].store,
                                             priceDetailFood: categoryList[index]
                                                 .priceCategory,
+                                            current_address: '',
+                                            phoneNumber: '',
+                                            userName: '',
                                             // userName: "",
                                           )));
                               // Navigator.pushNamed(context, "/detail_food", );

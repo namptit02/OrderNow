@@ -30,14 +30,21 @@ class AppRouter {
         );
       case AppRouteName.home_screen:
         return MaterialPageRoute(
-          builder: (context) => const HomeScreen(),
+          builder: (context) => const HomeScreen(
+            phoneNumber: '',
+            userName: '',
+            current_address: '',
+          ),
           // args: settings.arguments as ScreenArgument,
           settings: settings,
         );
       case AppRouteName.cart_screen:
         return MaterialPageRoute(
-          builder: (context) => CartScreen(
-            cartItems: const [],
+          builder: (context) => const CartScreen(
+            cartItems: [],
+            current_address: '',
+            phoneNumber: '',
+            userName: '',
           ),
           settings: settings,
         );

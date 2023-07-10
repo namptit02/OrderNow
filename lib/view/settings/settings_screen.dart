@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_application_chuyenman/common/authentication.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
@@ -28,8 +27,8 @@ class _SettingScreenState extends State<SettingScreen> {
             try {
               await Auth().logOut();
               // Xóa thông tin đăng nhập đã lưu trong SharedPreferences
-              final prefs = await SharedPreferences.getInstance();
-              prefs.remove("loginData");
+              // final prefs = await SharedPreferences.getInstance();
+              // prefs.remove("loginData");
 
               // Ngắt kết nối tài khoản Google
               final googleSignIn = GoogleSignIn();

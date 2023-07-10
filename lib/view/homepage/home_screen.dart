@@ -1,9 +1,13 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
+
 // import 'package:flutter_application_chuyenman/common/authentication.dart';
 import 'package:flutter_application_chuyenman/components/app_colors.dart';
 import 'package:flutter_application_chuyenman/network/data_state/data_state.dart';
 import 'package:flutter_application_chuyenman/network/remote/models/food_item.dart';
 import 'package:flutter_application_chuyenman/network/repositories/home_repository_impl.dart';
+import 'package:flutter_application_chuyenman/view/cart/cart_screen.dart';
 // import 'package:flutter_application_chuyenman/view/cart/cart_screen.dart';
 
 import 'package:flutter_application_chuyenman/view/detaill_food/view_food.dart';
@@ -12,7 +16,16 @@ import 'package:flutter_application_chuyenman/view/detaill_food/view_food.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  final String phoneNumber;
+  final String userName;
+
+  final String current_address;
+  const HomeScreen(
+      {Key? key,
+      required this.phoneNumber,
+      required this.userName,
+      required this.current_address})
+      : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -43,17 +56,22 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       isLoading = true;
     });
+
     final response = await HomeRepositoryImpl().getListCategoryItem();
 
-    if (response is DataSuccess) {
+    if (mounted) {
+      // Kiểm tra xem widget còn trong cây widget hay không
+      if (response is DataSuccess) {
+        setState(() {
+          categoryList = response.data?.listCategoryItem ?? [];
+          filteredCategoryList = categoryList;
+        });
+      }
+
       setState(() {
-        categoryList = response.data?.listCategoryItem ?? [];
-        filteredCategoryList = categoryList; // Khởi tạo danh sách lọc ban đầu
+        isLoading = false;
       });
     }
-    setState(() {
-      isLoading = false;
-    });
   }
 
   @override
@@ -79,6 +97,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // print("Phone number o HomeScreen: ${widget.phoneNumber}");
+    // print("User name o HomeScreen: ${widget.userName}");
+    // print("Current address o HomeScreen: ${widget.current_address}");
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: WillPopScope(
@@ -109,18 +130,15 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 60, left: 26),
-                  // ignore: avoid_unnecessary_containers
+                  padding: const EdgeInsets.only(top: 60),
                   child: Container(
-                    child: Row(
-                      children: const [
-                        // Text(
-                        //   'Welcome, ${widget.args.usernameValue.split('@').first}',
-                        //   style: const TextStyle(
-                        //       fontSize: 20, fontWeight: FontWeight.w600),
-                        // ),
-                      ],
+                    width: MediaQuery.of(context).size.width * 1,
+                    height: 50,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
                     ),
+                    child: Text("Delivery to: ${widget.current_address}",
+                        style: const TextStyle(fontSize: 20)),
                   ),
                 ),
                 Container(
@@ -151,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 const Padding(
-                  padding: EdgeInsets.only(left: 19, top: 20),
+                  padding: EdgeInsets.only(left: 19, top: 5),
                   child: Text(
                     "Choose Category",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
@@ -159,7 +177,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 SizedBox(
                   // width: double.infinity,
-                  height: 150,
+                  height: 130,
                   child: ListView.builder(
                     shrinkWrap: false,
                     physics: const AlwaysScrollableScrollPhysics(),
@@ -234,6 +252,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                         filteredCategoryList[index].store,
                                     priceDetailFood: filteredCategoryList[index]
                                         .priceCategory,
+                                    current_address: '',
+                                    phoneNumber: '',
+                                    userName: '',
                                     // userName: widget.args.usernameValue,
                                   ),
                                 ),
@@ -309,7 +330,17 @@ class _HomeScreenState extends State<HomeScreen> {
           color: Colors.red,
         ),
         onPressed: () {
-          Navigator.pushNamed(context, "/cart_screen");
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CartScreen(
+                phoneNumber: widget.phoneNumber,
+                userName: widget.userName,
+                current_address: widget.current_address,
+                cartItems: const [],
+              ),
+            ),
+          );
         },
       ),
     );
